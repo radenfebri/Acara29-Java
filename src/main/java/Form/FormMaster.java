@@ -144,6 +144,7 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPembelianActionPerformed
         // TODO add your handling code here:
+        new Pembelian().setVisible(true);
     }//GEN-LAST:event_DataPembelianActionPerformed
 
     private void DataMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataMemberActionPerformed
