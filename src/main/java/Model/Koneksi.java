@@ -23,7 +23,7 @@ public class Koneksi {
                  mysqlkonek = (Connection)DriverManager.getConnection(DB,user,pass);
                  
             } catch (Exception e) {
-                
+                System.out.println("Koneksi Database gagal \n" + e);
             }
          
         }return mysqlkonek;
