@@ -28,4 +28,8 @@ public class Koneksi {
          
         }return mysqlkonek;
     }
+    
+    public static void main(String[] args) throws SQLException {
+       koneksiDB();
+    }
 }
