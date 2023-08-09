@@ -16,7 +16,7 @@ public class Koneksi {
     private static Connection koneksiDB() throws SQLException{
         if(mysqlkonek == null){
             try {
-                 String DB = "jdbc:mysql://localhost:3306/db_Penjualan";
+                 String DB = "jdbc:mysql://localhost:3306/penjualan-sepatu";
                  String user = "root";
                  String pass = "";
                  DriverManager.deregisterDriver(new com.mysql.jdbc.Driver());
