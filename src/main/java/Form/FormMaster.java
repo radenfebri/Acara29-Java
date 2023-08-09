@@ -93,6 +93,10 @@ public class FormMaster extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(DataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -105,17 +109,13 @@ public class FormMaster extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(DataPenjualan)
                 .addGap(31, 31, 31))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 551, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DataSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,7 +144,7 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPembelianActionPerformed
         // TODO add your handling code here:
-        new FormPembelian().setVisible(true);
+        new FormTransaksi().setVisible(true);
     }//GEN-LAST:event_DataPembelianActionPerformed
 
     private void DataMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataMemberActionPerformed
