@@ -2,7 +2,6 @@ Form\FormBarang$4.class
 Form\FormPenjualan$14.class
 Form\FormSupplier.class
 Form\FormPembeli$5.class
-Form\FormTransaksi$1.class
 Form\FormPembeli$1.class
 Form\FormBarang$8.class
 Form\FormPenjualan$17.class
@@ -10,9 +9,7 @@ Form\FormBarang.class
 Form\FormPenjualan$3.class
 Form\FormMaster$3.class
 Form\FormSupplier$4.class
-Form\FormTransaksi$8.class
 Form\FormPembeli$4.class
-Form\FormTransaksi$5.class
 Form\FormPenjualan$15.class
 Form\FormPenjualan$4.class
 Form\FormPenjualan.class
@@ -21,18 +18,14 @@ Form\FormBarang$3.class
 Form\FormPenjualan$11.class
 Form\FormSupplier$6.class
 TugasAcara29$1.class
-Form\FormTransaksi$9.class
-Form\FormTransaksi$2.class
 Form\FormBarang$6.class
 Form\FormSupplier$3.class
 Form\FormBarang$9.class
 Form\FormPenjualan$7.class
 Form\FormPembeli$7.class
 Form\FormPenjualan$5.class
-Form\FormTransaksi$6.class
 Form\FormSupplier$5.class
 Form\FormPenjualan$12.class
-Form\FormTransaksi.class
 Form\FormMaster$2.class
 controler\InsertSuplier.class
 Form\FormPenjualan$8.class
@@ -44,7 +37,6 @@ Form\FormPenjualan$1.class
 Form\FormPembeli$6.class
 Form\FormMaster.class
 Form\FormPembeli$3.class
-Form\FormTransaksi$3.class
 TugasAcara29.class
 Form\FormMaster$1.class
 Form\FormBarang$5.class
@@ -56,8 +48,6 @@ Form\FormMaster$4.class
 Form\FormPenjualan$16.class
 Model\Koneksi.class
 Form\FormPenjualan$10.class
-Form\FormTransaksi$7.class
-Form\FormTransaksi$4.class
 Form\FormPembeli$2.class
 Form\FormBarang$1.class
 Form\FormPembeli.class

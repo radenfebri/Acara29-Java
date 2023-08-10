@@ -32,8 +32,9 @@ public class FormBarang extends javax.swing.JFrame {
         model.addColumn("No. Barang");
         model.addColumn("Nama Barang");
         model.addColumn("Merk Barang");
-        model.addColumn("Stok");
         model.addColumn("Harga");
+        model.addColumn("Stok");
+
 
         try {
             String sql = "SELECT * from tb_barang";
@@ -283,7 +284,6 @@ public class FormBarang extends javax.swing.JFrame {
 
             if (row == 1) {
                 JOptionPane.showMessageDialog(null, "Sukses menambahkan barang", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
-                con.close();
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Gagal menambahkan barang", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
@@ -314,8 +314,8 @@ public class FormBarang extends javax.swing.JFrame {
         id_barang = TbBarang.getValueAt(TbBarang.getSelectedRow(), 0).toString();
         NamaBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 1).toString());
         MerkBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 2).toString());
-        StokBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 3).toString());
-        HargaBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 4).toString());
+        HargaBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 3).toString());
+        StokBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 4).toString());
         
         boolean editTbl = TbBarang.isEditing();
         if (editTbl == false) {
