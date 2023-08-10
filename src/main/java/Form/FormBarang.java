@@ -283,10 +283,10 @@ public class FormBarang extends javax.swing.JFrame {
 
             if (row == 1) {
                 JOptionPane.showMessageDialog(null, "Sukses menambahkan barang", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
-//                con.close();
+                
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal menambahkan barang", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "Data Barang", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("gagal menambah kedalam database \n" + e);
         }
         load_table();

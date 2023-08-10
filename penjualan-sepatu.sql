@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Agu 2023 pada 01.49
+-- Waktu pembuatan: 10 Agu 2023 pada 05.04
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.1.17
 
@@ -150,6 +150,18 @@ ALTER TABLE `tb_transaksi`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_barang`
+--
+ALTER TABLE `tb_barang`
+  MODIFY `id_barang` int(25) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_pembeli`
+--
+ALTER TABLE `tb_pembeli`
+  MODIFY `id_pembeli` int(25) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_penjual`
