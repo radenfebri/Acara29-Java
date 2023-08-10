@@ -4,17 +4,57 @@
  */
 package Form;
 
+import Model.Koneksi;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Alvin
  */
 public class FormSupplier extends javax.swing.JFrame {
+    
+    private String id_supplier;
 
     /**
      * Creates new form FormSupplier
      */
     public FormSupplier() {
         initComponents();
+        load_table();
+    }
+    
+    
+    private void load_table() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No. Supplier");
+        model.addColumn("Nama");        
+        model.addColumn("Email");
+        model.addColumn("Alamat");
+        model.addColumn("No HP");
+
+        try {
+            String sql = "SELECT * from tb_supplier";
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                model.addRow(new Object[]{
+                    res.getInt(1), 
+                    res.getString(2), 
+                    res.getString(3),
+                    res.getString(4),                    
+                    res.getString(5),
+                });
+            }
+            System.out.println("Data: " + res);
+            TbSupplier.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error Found: " + e);
+        }
     }
 
     /**
@@ -26,52 +66,67 @@ public class FormSupplier extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        NamaPerusahaan = new javax.swing.JTextField();
+        Email = new javax.swing.JTextField();
         Save = new javax.swing.JButton();
         Clear = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        NamaBarang = new javax.swing.JTextField();
+        TbSupplier = new javax.swing.JTable();
+        NoHp = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         Edit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         Delete = new javax.swing.JButton();
-        KodeSupplier = new javax.swing.JTextField();
+        NamaSupplier = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        textArea1 = new java.awt.TextArea();
+        Alamat = new java.awt.TextArea();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        NamaPerusahaan.addActionListener(new java.awt.event.ActionListener() {
+        Email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NamaPerusahaanActionPerformed(evt);
+                EmailActionPerformed(evt);
             }
         });
 
         Save.setText("SAVE");
+        Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveActionPerformed(evt);
+            }
+        });
 
         Clear.setText("CLEAR");
+        Clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearActionPerformed(evt);
+            }
+        });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        TbSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "No", "Nama Supplier", "Email", "Alamat", "No HP"
+
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        TbSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TbSupplierMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(TbSupplier);
 
-        NamaBarang.addActionListener(new java.awt.event.ActionListener() {
+        NoHp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NamaBarangActionPerformed(evt);
+                NoHpActionPerformed(evt);
             }
         });
 
@@ -93,9 +148,9 @@ public class FormSupplier extends javax.swing.JFrame {
             }
         });
 
-        KodeSupplier.addActionListener(new java.awt.event.ActionListener() {
+        NamaSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                KodeSupplierActionPerformed(evt);
+                NamaSupplierActionPerformed(evt);
             }
         });
 
@@ -119,7 +174,12 @@ public class FormSupplier extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(322, 322, 322)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Save)
@@ -134,28 +194,23 @@ public class FormSupplier extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(NamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(Alamat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(KodeSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(NamaSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(NamaPerusahaan, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(51, 51, 51)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(50, 50, 50))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(322, 322, 322)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,57 +220,85 @@ public class FormSupplier extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1))
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(KodeSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(NamaSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(NamaPerusahaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(NamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Save)
                     .addComponent(Edit)
                     .addComponent(Clear)
                     .addComponent(Delete))
-                .addGap(71, 71, 71))
+                .addGap(143, 143, 143))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NamaPerusahaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamaPerusahaanActionPerformed
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NamaPerusahaanActionPerformed
+    }//GEN-LAST:event_EmailActionPerformed
 
-    private void NamaBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamaBarangActionPerformed
+    private void NoHpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoHpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NamaBarangActionPerformed
+    }//GEN-LAST:event_NoHpActionPerformed
 
     private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
         // TODO add your handling code here:
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+
+            String sql = "update tb_supplier set nama='"+ NamaSupplier.getText() + "', email ='" + Email.getText() + "',"+ "alamat ='" + Alamat.getText() + "',no_hp = " + NoHp.getText() + " where id_supplier = " + id_supplier;
+
+            int row = st.executeUpdate(sql);
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Supplier", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Data Supplier", JOptionPane.ERROR_MESSAGE);
+        }
+        load_table();
     }//GEN-LAST:event_EditActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            String sql = "delete from tb_supplier where id_supplier = " + id_supplier;
+            int row = st.executeUpdate(sql);
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Supplier", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Supplier", JOptionPane.ERROR_MESSAGE);
+        }
+        load_table();
     }//GEN-LAST:event_DeleteActionPerformed
 
-    private void KodeSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KodeSupplierActionPerformed
+    private void NamaSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamaSupplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_KodeSupplierActionPerformed
+    }//GEN-LAST:event_NamaSupplierActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -224,6 +307,50 @@ public class FormSupplier extends javax.swing.JFrame {
 
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
+        // TODO add your handling code here:
+                try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            String sql = "insert into tb_supplier(nama,email,alamat,no_hp) "
+                    + "values ('" + NamaSupplier.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "')";
+            int row = st.executeUpdate(sql);
+
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Sukses menambahkan supplier", "Data Supplier", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Data Supplier", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("gagal menambah kedalam database \n" + e);
+        }
+        load_table();
+    }//GEN-LAST:event_SaveActionPerformed
+
+    private void TbSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbSupplierMouseClicked
+        // TODO add your handling code here:
+        id_supplier = TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 0).toString();
+        NamaSupplier.setText(TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 1).toString());
+        Email.setText(TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 2).toString());
+        Alamat.setText(TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 3).toString());
+        NoHp.setText(TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 4).toString());
+        
+        boolean editTbl = TbSupplier.isEditing();
+        if (editTbl == false) {
+            JOptionPane.showMessageDialog(null, "Sukses memilih Data Supplier", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_TbSupplierMouseClicked
+
+    private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
+        // TODO add your handling code here:
+        NamaSupplier.setText("");
+        Email.setText("");
+        Alamat.setText("");
+        NoHp.setText("");
+    }//GEN-LAST:event_ClearActionPerformed
+                                
 
     /**
      * @param args the command line arguments
@@ -261,13 +388,15 @@ public class FormSupplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.TextArea Alamat;
     private javax.swing.JButton Clear;
     private javax.swing.JButton Delete;
     private javax.swing.JButton Edit;
-    private javax.swing.JTextField KodeSupplier;
-    private javax.swing.JTextField NamaBarang;
-    private javax.swing.JTextField NamaPerusahaan;
+    private javax.swing.JTextField Email;
+    private javax.swing.JTextField NamaSupplier;
+    private javax.swing.JTextField NoHp;
     private javax.swing.JButton Save;
+    private javax.swing.JTable TbSupplier;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -275,7 +404,5 @@ public class FormSupplier extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable3;
-    private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 }
