@@ -294,7 +294,20 @@ public class FormPenjual extends javax.swing.JFrame {
     }//GEN-LAST:event_AddActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:\
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            String sql = "delete from tb_penjual where id_penjual = " + id_penjual;
+            int row = st.executeUpdate(sql);
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Sepatu", JOptionPane.ERROR_MESSAGE);
+        }
+        load_table();
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
