@@ -330,9 +330,7 @@ public class FormBarang extends javax.swing.JFrame {
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
 
-            String sql = "update tb_barang set nama_barang ='" + NamaBarang.getText() + "',"
-                    + "merk_barang ='" + MerkBarang.getText() + "',harga_barang = " + HargaBarang.getText()
-                    + " where id_barang = " + id_barang;
+            String sql = "update tb_barang set stok_barang='"+ StokBarang.getText() + "', nama_barang ='" + NamaBarang.getText() + "',"+ "merk_barang ='" + MerkBarang.getText() + "',harga_barang = " + HargaBarang.getText() + " where id_barang = " + id_barang;
 
             int row = st.executeUpdate(sql);
             if (row == 1) {
