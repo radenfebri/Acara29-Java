@@ -4,6 +4,13 @@
  */
 package Form;
 
+import Model.Koneksi;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author febri
@@ -13,8 +20,41 @@ public class FormPenjual extends javax.swing.JFrame {
     /**
      * Creates new form FormPenjualan
      */
+    
+    private String id_penjual;
+    
     public FormPenjual() {
         initComponents();
+        load_table();
+    }
+    
+    private void load_table() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No. Penjual");
+        model.addColumn("Nama Penjual");
+        model.addColumn("Email");
+        model.addColumn("Alamat");
+        model.addColumn("Nomor HP");
+
+        try {
+            String sql = "SELECT * from tb_penjual";
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                model.addRow(new Object[]{
+                    res.getInt(1), 
+                    res.getString(2), 
+                    res.getString(3),
+                    res.getString(4),
+                    res.getInt(5),
+                });
+            }
+            System.out.println("Data: " + res);
+            TbPenjual.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error Found: " + e);
+        }
     }
 
     /**
@@ -29,20 +69,20 @@ public class FormPenjual extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        Stok = new javax.swing.JTextField();
+        NamaPenjual = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        Harga = new javax.swing.JTextField();
+        Email = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        Jumlah = new javax.swing.JTextField();
+        AlamatPenjual = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        Total = new javax.swing.JTextField();
+        NoHp = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         Add = new javax.swing.JButton();
         Delete = new javax.swing.JButton();
-        Save = new javax.swing.JButton();
+        Update = new javax.swing.JButton();
         Clear = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        TbPenjual = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -64,33 +104,33 @@ public class FormPenjual extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("PENJUAL");
 
-        Stok.addActionListener(new java.awt.event.ActionListener() {
+        NamaPenjual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StokActionPerformed(evt);
+                NamaPenjualActionPerformed(evt);
             }
         });
 
         jLabel9.setText("Nama Penjual");
 
-        Harga.addActionListener(new java.awt.event.ActionListener() {
+        Email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HargaActionPerformed(evt);
+                EmailActionPerformed(evt);
             }
         });
 
         jLabel10.setText("Email");
 
-        Jumlah.addActionListener(new java.awt.event.ActionListener() {
+        AlamatPenjual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JumlahActionPerformed(evt);
+                AlamatPenjualActionPerformed(evt);
             }
         });
 
         jLabel11.setText("Alamat");
 
-        Total.addActionListener(new java.awt.event.ActionListener() {
+        NoHp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TotalActionPerformed(evt);
+                NoHpActionPerformed(evt);
             }
         });
 
@@ -110,22 +150,37 @@ public class FormPenjual extends javax.swing.JFrame {
             }
         });
 
-        Save.setText("UPDATE");
+        Update.setText("UPDATE");
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
 
         Clear.setText("CLEAR");
+        Clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TbPenjual.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "No", "Nama Penjual", "Email", "Alamat", "No HP"
+
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        TbPenjual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TbPenjualMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(TbPenjual);
 
         jButton1.setText("Kembali");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +205,7 @@ public class FormPenjual extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Add)
                                 .addGap(18, 18, 18)
-                                .addComponent(Save)
+                                .addComponent(Update)
                                 .addGap(18, 18, 18)
                                 .addComponent(Clear)
                                 .addGap(18, 18, 18)
@@ -160,19 +215,19 @@ public class FormPenjual extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Harga, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(AlamatPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Stok, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(NamaPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(35, 35, 35))
@@ -190,25 +245,25 @@ public class FormPenjual extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(Stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(NamaPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(Harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(Jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(AlamatPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Add)
                     .addComponent(Delete)
-                    .addComponent(Save)
+                    .addComponent(Update)
                     .addComponent(Clear))
                 .addContainerGap(163, Short.MAX_VALUE))
         );
@@ -217,28 +272,58 @@ public class FormPenjual extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void StokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StokActionPerformed
+    private void NamaPenjualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamaPenjualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_StokActionPerformed
+    }//GEN-LAST:event_NamaPenjualActionPerformed
 
-    private void HargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HargaActionPerformed
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_HargaActionPerformed
+    }//GEN-LAST:event_EmailActionPerformed
 
-    private void JumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JumlahActionPerformed
+    private void AlamatPenjualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlamatPenjualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_JumlahActionPerformed
+    }//GEN-LAST:event_AlamatPenjualActionPerformed
 
-    private void TotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalActionPerformed
+    private void NoHpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoHpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TotalActionPerformed
+    }//GEN-LAST:event_NoHpActionPerformed
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            String sql = "insert into tb_penjual(nama,alamat,email,no_hp) "
+                    + "values ('" + NamaPenjual.getText() + "', '" + AlamatPenjual.getText() + "', '" + Email.getText()+ "', '" + NoHp.getText() + "')";
+            int row = st.executeUpdate(sql);
+
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Sukses menambahkan barang", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("gagal menambah kedalam database \n" + e);
+        }
+        load_table();
     }//GEN-LAST:event_AddActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:\
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            String sql = "delete from tb_penjual where id_penjual = " + id_penjual;
+            int row = st.executeUpdate(sql);
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Sepatu", JOptionPane.ERROR_MESSAGE);
+        }
+        load_table();
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -248,6 +333,49 @@ public class FormPenjual extends javax.swing.JFrame {
 
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void TbPenjualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbPenjualMouseClicked
+        // TODO add your handling code here:
+        id_penjual = TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 0).toString();
+        NamaPenjual.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 1).toString());
+        Email.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 2).toString());
+        AlamatPenjual.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 3).toString());
+        NoHp.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 4).toString());
+        
+        boolean editTbl = TbPenjual.isEditing();
+        if (editTbl == false) {
+            JOptionPane.showMessageDialog(null, "Sukses memilih Data Sepatu", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_TbPenjualMouseClicked
+
+    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+        // TODO add your handling code here:
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+
+            String sql = "update tb_penjual set nama='"+ NamaPenjual.getText() + 
+                    "', email ='" + Email.getText() + "',"+ "alamat ='" + AlamatPenjual.getText() + 
+                    "',no_hp = " + NoHp.getText() + " where id_penjual = " + id_penjual;
+
+            int row = st.executeUpdate(sql);
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Data Sepatu", JOptionPane.ERROR_MESSAGE);
+        }
+        load_table();
+    }//GEN-LAST:event_UpdateActionPerformed
+
+    private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
+        // TODO add your handling code here:
+        NamaPenjual.setText("");
+        AlamatPenjual.setText("");
+        Email.setText("");
+        NoHp.setText("");
+    }//GEN-LAST:event_ClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,13 +415,14 @@ public class FormPenjual extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Add;
+    private javax.swing.JTextField AlamatPenjual;
     private javax.swing.JButton Clear;
     private javax.swing.JButton Delete;
-    private javax.swing.JTextField Harga;
-    private javax.swing.JTextField Jumlah;
-    private javax.swing.JButton Save;
-    private javax.swing.JTextField Stok;
-    private javax.swing.JTextField Total;
+    private javax.swing.JTextField Email;
+    private javax.swing.JTextField NamaPenjual;
+    private javax.swing.JTextField NoHp;
+    private javax.swing.JTable TbPenjual;
+    private javax.swing.JButton Update;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -303,6 +432,5 @@ public class FormPenjual extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

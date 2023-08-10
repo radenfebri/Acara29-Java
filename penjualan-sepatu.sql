@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Agu 2023 pada 05.04
+-- Waktu pembuatan: 10 Agu 2023 pada 12.08
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.1.17
 
@@ -35,6 +35,16 @@ CREATE TABLE `tb_barang` (
   `stok_barang` int(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `tb_barang`
+--
+
+INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `merk_barang`, `harga_barang`, `stok_barang`) VALUES
+(2, 'sepatu', 'nike', 25000, 13),
+(3, 'sepatu', 'nike', 43, 25000),
+(4, 'sepatu', 'nike', 898989, 1),
+(5, 'fefe', 'adidas', 10000, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -46,8 +56,16 @@ CREATE TABLE `tb_pembeli` (
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
-  `no_hp` int(25) NOT NULL
+  `no_hp` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `tb_pembeli`
+--
+
+INSERT INTO `tb_pembeli` (`id_pembeli`, `nama`, `email`, `alamat`, `no_hp`) VALUES
+(1, 'Supri', 'supri@gmail.com', 'jalanjalan', '4545'),
+(2, 'budi', 'budi@gmail.com', 'mdoko', '8484');
 
 -- --------------------------------------------------------
 
@@ -60,7 +78,7 @@ CREATE TABLE `tb_penjual` (
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
-  `no_hp` int(25) NOT NULL
+  `no_hp` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -89,7 +107,7 @@ CREATE TABLE `tb_supplier` (
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
-  `no_hp` int(25) NOT NULL
+  `no_hp` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -155,13 +173,13 @@ ALTER TABLE `tb_transaksi`
 -- AUTO_INCREMENT untuk tabel `tb_barang`
 --
 ALTER TABLE `tb_barang`
-  MODIFY `id_barang` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_barang` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pembeli`
 --
 ALTER TABLE `tb_pembeli`
-  MODIFY `id_pembeli` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pembeli` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_penjual`

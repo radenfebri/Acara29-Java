@@ -3,7 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Form;
-
+import Model.Koneksi;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Alvin
@@ -13,10 +18,39 @@ public class FormPembeli extends javax.swing.JFrame {
     /**
      * Creates new form FormPembeli
      */
+    private String id_pembeli;
     public FormPembeli() {
         initComponents();
+        load_table();
     }
+ private void load_table() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No. Pembeli");
+        model.addColumn("Nama Pembeli");
+        model.addColumn("Email");
+        model.addColumn("Alamat");
+        model.addColumn("No Hp");
 
+        try {
+            String sql = "SELECT * from tb_pembeli";
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                model.addRow(new Object[]{
+                    res.getInt(1), 
+                    res.getString(2), 
+                    res.getString(3),
+                    res.getString(4),
+                    res.getInt(5),
+                });
+            }
+            System.out.println("Data: " + res);
+            TbPembeli.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error Found: " + e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,22 +61,22 @@ public class FormPembeli extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Stok = new javax.swing.JTextField();
+        NamaPembeli = new javax.swing.JTextField();
         Clear = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        Harga = new javax.swing.JTextField();
+        TbPembeli = new javax.swing.JTable();
+        Email = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        Jumlah = new javax.swing.JTextField();
+        Alamat = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        Total = new javax.swing.JTextField();
+        NoHp = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         Add = new javax.swing.JButton();
         Delete = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        Save = new javax.swing.JButton();
+        Update = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,32 +91,42 @@ public class FormPembeli extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Stok.addActionListener(new java.awt.event.ActionListener() {
+        NamaPembeli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StokActionPerformed(evt);
+                NamaPembeliActionPerformed(evt);
             }
         });
 
         Clear.setText("CLEAR");
+        Clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Nama Pembeli");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TbPembeli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "No", "Nama Pembeli", "Email", "Alamat", "No HP"
+
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        TbPembeli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TbPembeliMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(TbPembeli);
 
-        Harga.addActionListener(new java.awt.event.ActionListener() {
+        Email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HargaActionPerformed(evt);
+                EmailActionPerformed(evt);
             }
         });
 
@@ -95,17 +139,17 @@ public class FormPembeli extends javax.swing.JFrame {
             }
         });
 
-        Jumlah.addActionListener(new java.awt.event.ActionListener() {
+        Alamat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JumlahActionPerformed(evt);
+                AlamatActionPerformed(evt);
             }
         });
 
         jLabel11.setText("Alamat");
 
-        Total.addActionListener(new java.awt.event.ActionListener() {
+        NoHp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TotalActionPerformed(evt);
+                NoHpActionPerformed(evt);
             }
         });
 
@@ -128,7 +172,12 @@ public class FormPembeli extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("PEMBELI");
 
-        Save.setText("UPDATE");
+        Update.setText("UPDATE");
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,7 +195,7 @@ public class FormPembeli extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Add)
                                 .addGap(18, 18, 18)
-                                .addComponent(Save)
+                                .addComponent(Update)
                                 .addGap(18, 18, 18)
                                 .addComponent(Clear)
                                 .addGap(18, 18, 18)
@@ -156,19 +205,19 @@ public class FormPembeli extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Harga, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Stok, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(NamaPembeli, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(35, 35, 35))
@@ -186,25 +235,25 @@ public class FormPembeli extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(Stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(NamaPembeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(Harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(Jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Add)
                     .addComponent(Delete)
-                    .addComponent(Save)
+                    .addComponent(Update)
                     .addComponent(Clear))
                 .addContainerGap(225, Short.MAX_VALUE))
         );
@@ -212,13 +261,13 @@ public class FormPembeli extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void StokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StokActionPerformed
+    private void NamaPembeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamaPembeliActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_StokActionPerformed
+    }//GEN-LAST:event_NamaPembeliActionPerformed
 
-    private void HargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HargaActionPerformed
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_HargaActionPerformed
+    }//GEN-LAST:event_EmailActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -228,22 +277,94 @@ public class FormPembeli extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void JumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JumlahActionPerformed
+    private void AlamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlamatActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_JumlahActionPerformed
+    }//GEN-LAST:event_AlamatActionPerformed
 
-    private void TotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalActionPerformed
+    private void NoHpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoHpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TotalActionPerformed
-
-    private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AddActionPerformed
+    }//GEN-LAST:event_NoHpActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            String sql = "delete from tb_pembeli where id_pembeli = " + id_pembeli;
+            int row = st.executeUpdate(sql);
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Pembeli", JOptionPane.ERROR_MESSAGE);
+        }
+        load_table();
     }//GEN-LAST:event_DeleteActionPerformed
 
+    private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
+        // TODO add your handling code here:
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            String sql = "insert into tb_pembeli(nama,email,alamat,no_hp) "
+                    + "values ('" + NamaPembeli.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "')";
+            int row = st.executeUpdate(sql);
+
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Sukses menambahkan data pembeli", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("gagal menambah kedalam database \n" + e);
+        }
+        load_table();
+                        
+    }//GEN-LAST:event_AddActionPerformed
+
+    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+        // TODO add your handling code here:
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+
+            String sql = "update tb_pembeli set nama='"+ NamaPembeli.getText() + "', email ='" + Email.getText() + "',"+ "alamat ='" + Alamat.getText() + "',no_hp = " + NoHp.getText() + " where id_pembeli = " + id_pembeli;
+
+            int row = st.executeUpdate(sql);
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Data Pembeli", JOptionPane.ERROR_MESSAGE);
+        }
+        load_table();
+    }//GEN-LAST:event_UpdateActionPerformed
+
+    private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
+        // TODO add your handling code here:
+        NamaPembeli.setText("");
+        Email.setText("");
+        Alamat.setText("");
+        NoHp.setText("");
+    }//GEN-LAST:event_ClearActionPerformed
+
+    private void TbPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbPembeliMouseClicked
+        // TODO add your handling code here:
+         id_pembeli = TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 0).toString();
+        NamaPembeli.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 1).toString());
+        Email.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 2).toString());
+        Alamat.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 3).toString());
+        NoHp.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 4).toString());
+        
+        boolean editTbl = TbPembeli.isEditing();
+        if (editTbl == false) {
+            JOptionPane.showMessageDialog(null, "Sukses memilih Data Pembeli", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_TbPembeliMouseClicked
+ 
     /**
      * @param args the command line arguments
      */
@@ -281,13 +402,14 @@ public class FormPembeli extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Add;
+    private javax.swing.JTextField Alamat;
     private javax.swing.JButton Clear;
     private javax.swing.JButton Delete;
-    private javax.swing.JTextField Harga;
-    private javax.swing.JTextField Jumlah;
-    private javax.swing.JButton Save;
-    private javax.swing.JTextField Stok;
-    private javax.swing.JTextField Total;
+    private javax.swing.JTextField Email;
+    private javax.swing.JTextField NamaPembeli;
+    private javax.swing.JTextField NoHp;
+    private javax.swing.JTable TbPembeli;
+    private javax.swing.JButton Update;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -296,6 +418,5 @@ public class FormPembeli extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
