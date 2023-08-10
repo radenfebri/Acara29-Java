@@ -32,8 +32,8 @@ public class FormBarang extends javax.swing.JFrame {
         model.addColumn("No. Barang");
         model.addColumn("Nama Barang");
         model.addColumn("Merk Barang");
-        model.addColumn("Stok");
         model.addColumn("Harga");
+        model.addColumn("Stok");
 
         try {
             String sql = "SELECT * from tb_barang";
@@ -272,6 +272,8 @@ public class FormBarang extends javax.swing.JFrame {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
+//            String sql = "insert into tb_barang(nama_barang,merk_barang,harga_barang,stok_barang) "
+//                    + "values ('" + NamaBarang.getText() + "', '" + MerkBarang.getText() + "', '" + HargaBarang.getText()+ "', '" + StokBarang.getText() + "')";
 //            System.out.println(sql);
         try {
             Koneksi ObjKoneksi = new Koneksi();
