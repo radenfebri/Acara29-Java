@@ -140,6 +140,7 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataBarangActionPerformed
         // TODO add your handling code here:
+        new FormBarang().setVisible(true);
     }//GEN-LAST:event_DataBarangActionPerformed
 
     private void DataPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPenjualanActionPerformed

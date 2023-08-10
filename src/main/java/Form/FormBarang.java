@@ -4,6 +4,10 @@
  */
 package Form;
 
+import Model.Koneksi;
+import java.sql.Connection;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author febri
@@ -15,8 +19,37 @@ public class FormBarang extends javax.swing.JFrame {
      */
     public FormBarang() {
         initComponents();
+        load_table();
     }
 
+    private void load_table() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No. Barang");
+        model.addColumn("Nama Barang");
+        model.addColumn("Merk Barang");
+        model.addColumn("Stok");
+        model.addColumn("Harga");
+
+        try {
+            String sql = "SELECT * from tb_barang";
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                model.addRow(new Object[]{
+                    res.getInt(1), 
+                    res.getString(2), 
+                    res.getString(3),
+                    res.getString(4),
+                    res.getInt(5),
+                });
+            }
+            System.out.println("Data: " + res);
+            TbBarang.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error Found: " + e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +69,7 @@ public class FormBarang extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         StokBarang = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TbBarang = new javax.swing.JTable();
         Add = new javax.swing.JButton();
         Delete = new javax.swing.JButton();
         Save = new javax.swing.JButton();
@@ -80,18 +113,15 @@ public class FormBarang extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TbBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nama Barang", "Merk Barang", "Harga Barang", "Stok Barang"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TbBarang);
 
         Add.setText("ADD");
         Add.addActionListener(new java.awt.event.ActionListener() {
@@ -263,12 +293,12 @@ public class FormBarang extends javax.swing.JFrame {
     private javax.swing.JTextField NamaBarang;
     private javax.swing.JButton Save;
     private javax.swing.JTextField StokBarang;
+    private javax.swing.JTable TbBarang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
