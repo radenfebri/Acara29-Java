@@ -82,12 +82,6 @@ public class FormTransaksi extends javax.swing.JFrame {
 
         jLabel5.setText("Nama Barang");
 
-        NamaPenjual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NamaPenjualActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Qty");
 
         Harga.addActionListener(new java.awt.event.ActionListener() {
@@ -142,11 +136,6 @@ public class FormTransaksi extends javax.swing.JFrame {
         });
 
         ComboPembeli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboPembeli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboPembeliActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Kembali");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
