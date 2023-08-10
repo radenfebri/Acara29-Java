@@ -74,7 +74,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         jLabel2.setText("Nama Penjual");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setText("PEMBELIAN");
+        jLabel3.setText("TRANSAKSI");
 
         KodeSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

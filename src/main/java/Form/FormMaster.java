@@ -42,6 +42,7 @@ public class FormMaster extends javax.swing.JFrame {
         DataSupplier = new javax.swing.JButton();
         DataPembelian = new javax.swing.JButton();
         DataMember = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 255));
@@ -74,7 +75,7 @@ public class FormMaster extends javax.swing.JFrame {
         });
 
         DataPembelian.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        DataPembelian.setText("Data Pembelian");
+        DataPembelian.setText("Data Transaksi");
         DataPembelian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DataPembelianActionPerformed(evt);
@@ -98,14 +99,20 @@ public class FormMaster extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(DataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(DataSupplier)
-                .addGap(18, 18, 18)
-                .addComponent(DataMember)
-                .addGap(18, 18, 18)
-                .addComponent(DataPembelian)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(44, Short.MAX_VALUE)
+                        .addComponent(DataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(DataSupplier)
+                        .addGap(18, 18, 18)
+                        .addComponent(DataMember)
+                        .addGap(18, 18, 18)
+                        .addComponent(DataPembelian))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(219, 219, 219)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(DataPenjualan)
                 .addGap(31, 31, 31))
@@ -115,7 +122,9 @@ public class FormMaster extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DataSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,6 +149,7 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataSupplierActionPerformed
         // TODO add your handling code here:
+         new FormSupplier().setVisible(true);
     }//GEN-LAST:event_DataSupplierActionPerformed
 
     private void DataPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPembelianActionPerformed
@@ -149,6 +159,7 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataMemberActionPerformed
         // TODO add your handling code here:
+         new FormPembeli().setVisible(true);
     }//GEN-LAST:event_DataMemberActionPerformed
 
     /**
@@ -195,5 +206,6 @@ public class FormMaster extends javax.swing.JFrame {
     private org.gjt.mm.mysql.Driver driver1;
     private org.gjt.mm.mysql.Driver driver2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
