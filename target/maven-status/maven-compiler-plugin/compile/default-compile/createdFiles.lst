@@ -4,6 +4,7 @@ Form\FormSupplier.class
 Form\FormPembeli$5.class
 Form\FormTransaksi$1.class
 Form\FormPembeli$1.class
+Form\FormBarang$8.class
 Form\FormPenjualan$17.class
 Form\FormBarang.class
 Form\FormPenjualan$3.class
@@ -24,6 +25,7 @@ Form\FormTransaksi$9.class
 Form\FormTransaksi$2.class
 Form\FormBarang$6.class
 Form\FormSupplier$3.class
+Form\FormBarang$9.class
 Form\FormPenjualan$7.class
 Form\FormPembeli$7.class
 Form\FormPenjualan$5.class
@@ -49,6 +51,7 @@ Form\FormBarang$5.class
 Form\FormPenjualan$6.class
 Form\FormBarang$7.class
 Form\FormPenjualan$9.class
+Form\FormBarang$10.class
 Form\FormMaster$4.class
 Form\FormPenjualan$16.class
 Model\Koneksi.class
