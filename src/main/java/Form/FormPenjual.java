@@ -4,6 +4,10 @@
  */
 package Form;
 
+import Model.Koneksi;
+import java.sql.Connection;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author febri
@@ -15,6 +19,36 @@ public class FormPenjual extends javax.swing.JFrame {
      */
     public FormPenjual() {
         initComponents();
+        load_table();
+    }
+    
+    private void load_table() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No. Penjual");
+        model.addColumn("Nama Penjual");
+        model.addColumn("Email");
+        model.addColumn("Alamat");
+        model.addColumn("Nomor HP");
+
+        try {
+            String sql = "SELECT * from tb_penjual";
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                model.addRow(new Object[]{
+                    res.getInt(1), 
+                    res.getString(2), 
+                    res.getString(3),
+                    res.getString(4),
+                    res.getInt(5),
+                });
+            }
+            System.out.println("Data: " + res);
+            TbPenjual.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error Found: " + e);
+        }
     }
 
     /**
@@ -42,7 +76,7 @@ public class FormPenjual extends javax.swing.JFrame {
         Save = new javax.swing.JButton();
         Clear = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        TbPenjual = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -114,18 +148,18 @@ public class FormPenjual extends javax.swing.JFrame {
 
         Clear.setText("CLEAR");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TbPenjual.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "No", "Nama Penjual", "Email", "Alamat", "No HP"
+
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(TbPenjual);
 
         jButton1.setText("Kembali");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -293,6 +327,7 @@ public class FormPenjual extends javax.swing.JFrame {
     private javax.swing.JTextField Jumlah;
     private javax.swing.JButton Save;
     private javax.swing.JTextField Stok;
+    private javax.swing.JTable TbPenjual;
     private javax.swing.JTextField Total;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
@@ -303,6 +338,5 @@ public class FormPenjual extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
