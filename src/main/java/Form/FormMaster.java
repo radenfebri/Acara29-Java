@@ -41,7 +41,7 @@ public class FormMaster extends javax.swing.JFrame {
         DataPenjualan = new javax.swing.JButton();
         DataSupplier = new javax.swing.JButton();
         DataPembelian = new javax.swing.JButton();
-        DataMember = new javax.swing.JButton();
+        DataPembeli = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,56 +82,57 @@ public class FormMaster extends javax.swing.JFrame {
             }
         });
 
-        DataMember.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        DataMember.setText("Data Member");
-        DataMember.addActionListener(new java.awt.event.ActionListener() {
+        DataPembeli.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        DataPembeli.setText("Data Pembeli");
+        DataPembeli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DataMemberActionPerformed(evt);
+                DataPembeliActionPerformed(evt);
             }
         });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/store.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(44, Short.MAX_VALUE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
                         .addComponent(DataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(DataSupplier)
-                        .addGap(18, 18, 18)
-                        .addComponent(DataMember)
-                        .addGap(18, 18, 18)
-                        .addComponent(DataPembelian))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(219, 219, 219)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(DataPenjualan)
-                .addGap(31, 31, 31))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(DataSupplier)
+                                .addGap(18, 18, 18)
+                                .addComponent(DataPembeli)
+                                .addGap(18, 18, 18)
+                                .addComponent(DataPembelian)
+                                .addGap(18, 18, 18)
+                                .addComponent(DataPenjualan)))))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jLabel1)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DataSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DataMember, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DataPembeli, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DataPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DataPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,7 +141,11 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataBarangActionPerformed
         // TODO add your handling code here:
-        new FormBarang().setVisible(true);
+        // new FormBarang().setVisible(true);
+        FormBarang fmbarang = new FormBarang();
+        fmbarang.show();
+        
+        dispose();
     }//GEN-LAST:event_DataBarangActionPerformed
 
     private void DataPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPenjualanActionPerformed
@@ -158,10 +163,10 @@ public class FormMaster extends javax.swing.JFrame {
         new FormTransaksi().setVisible(true);
     }//GEN-LAST:event_DataPembelianActionPerformed
 
-    private void DataMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataMemberActionPerformed
+    private void DataPembeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPembeliActionPerformed
         // TODO add your handling code here:
          new FormPembeli().setVisible(true);
-    }//GEN-LAST:event_DataMemberActionPerformed
+    }//GEN-LAST:event_DataPembeliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,7 +205,7 @@ public class FormMaster extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DataBarang;
-    private javax.swing.JButton DataMember;
+    private javax.swing.JButton DataPembeli;
     private javax.swing.JButton DataPembelian;
     private javax.swing.JButton DataPenjualan;
     private javax.swing.JButton DataSupplier;
