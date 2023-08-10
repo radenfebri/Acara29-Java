@@ -290,7 +290,23 @@ public class FormPenjual extends javax.swing.JFrame {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
-        
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            String sql = "insert into tb_penjual(nama,alamat,email,no_hp) "
+                    + "values ('" + NamaPenjual.getText() + "', '" + AlamatPenjual.getText() + "', '" + Email.getText()+ "', '" + NoHp.getText() + "')";
+            int row = st.executeUpdate(sql);
+
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Sukses menambahkan barang", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("gagal menambah kedalam database \n" + e);
+        }
+        load_table();
     }//GEN-LAST:event_AddActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
