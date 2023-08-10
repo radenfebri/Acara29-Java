@@ -45,7 +45,8 @@ public class FormMaster extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 0, 255));
+        setBackground(new java.awt.Color(76, 209, 55));
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("APLIKASI PENJUALAN SEDERHANA");
@@ -141,7 +142,6 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataBarangActionPerformed
         // TODO add your handling code here:
-        // new FormBarang().setVisible(true);
         FormBarang fmbarang = new FormBarang();
         fmbarang.show();
         
@@ -150,22 +150,34 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPenjualanActionPerformed
         // TODO add your handling code here:
-        new FormPenjualan().setVisible(true);
+        FormPenjualan fmpenjualan = new FormPenjualan();
+        fmpenjualan.show();
+        
+        dispose();
     }//GEN-LAST:event_DataPenjualanActionPerformed
 
     private void DataSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataSupplierActionPerformed
         // TODO add your handling code here:
-         new FormSupplier().setVisible(true);
+        FormSupplier fmsupplier = new FormSupplier();
+        fmsupplier.show();
+        
+        dispose();
     }//GEN-LAST:event_DataSupplierActionPerformed
 
     private void DataPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPembelianActionPerformed
         // TODO add your handling code here:
-        new FormTransaksi().setVisible(true);
+        FormTransaksi fmtransaksi = new FormTransaksi();
+        fmtransaksi.show();
+        
+        dispose();
     }//GEN-LAST:event_DataPembelianActionPerformed
 
     private void DataPembeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPembeliActionPerformed
         // TODO add your handling code here:
-         new FormPembeli().setVisible(true);
+        FormPembeli fmpembeli = new FormPembeli();
+        fmpembeli.show();
+        
+        dispose();
     }//GEN-LAST:event_DataPembeliActionPerformed
 
     /**
