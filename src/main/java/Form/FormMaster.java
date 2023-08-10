@@ -150,7 +150,7 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPenjualanActionPerformed
         // TODO add your handling code here:
-        FormPenjualan fmpenjualan = new FormPenjualan();
+        FormPenjual fmpenjualan = new FormPenjual();
         fmpenjualan.show();
         
         dispose();
