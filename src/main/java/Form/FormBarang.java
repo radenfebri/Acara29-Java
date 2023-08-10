@@ -268,9 +268,6 @@ public class FormBarang extends javax.swing.JFrame {
             int row = st.executeUpdate(sql);
             if (row == 1) {
                 JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
-
-                con.close();
-
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Sepatu", JOptionPane.ERROR_MESSAGE);
