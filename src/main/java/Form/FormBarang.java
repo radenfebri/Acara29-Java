@@ -256,12 +256,13 @@ public class FormBarang extends javax.swing.JFrame {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
+//            System.out.println(sql);
         try {
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
-            String sql = "insert into tb_barang(nama_barang,merk_barang,harga_barang) "
-                    + "values ('" + NamaBarang.getText() + "', '" + MerkBarang.getText() + "', '" + HargaBarang.getText()+ "', '" + HargaBarang.getText() + "')";
+            String sql = "insert into tb_barang(nama_barang,merk_barang,harga_barang,stok_barang) "
+                    + "values ('" + NamaBarang.getText() + "', '" + MerkBarang.getText() + "', '" + HargaBarang.getText()+ "', '" + StokBarang.getText() + "')";
             int row = st.executeUpdate(sql);
 
             if (row == 1) {
@@ -270,6 +271,7 @@ public class FormBarang extends javax.swing.JFrame {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Gagal menambahkan barang", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("gagal menambah kedalam database \n" + e);
         }
         load_table();
     }//GEN-LAST:event_AddActionPerformed
