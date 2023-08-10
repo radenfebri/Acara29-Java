@@ -6,6 +6,8 @@ package Form;
 
 import Model.Koneksi;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -77,7 +79,7 @@ public class FormPenjual extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         Add = new javax.swing.JButton();
         Delete = new javax.swing.JButton();
-        Save = new javax.swing.JButton();
+        Update = new javax.swing.JButton();
         Clear = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TbPenjual = new javax.swing.JTable();
@@ -148,7 +150,12 @@ public class FormPenjual extends javax.swing.JFrame {
             }
         });
 
-        Save.setText("UPDATE");
+        Update.setText("UPDATE");
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
 
         Clear.setText("CLEAR");
 
@@ -193,7 +200,7 @@ public class FormPenjual extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Add)
                                 .addGap(18, 18, 18)
-                                .addComponent(Save)
+                                .addComponent(Update)
                                 .addGap(18, 18, 18)
                                 .addComponent(Clear)
                                 .addGap(18, 18, 18)
@@ -251,7 +258,7 @@ public class FormPenjual extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Add)
                     .addComponent(Delete)
-                    .addComponent(Save)
+                    .addComponent(Update)
                     .addComponent(Clear))
                 .addContainerGap(163, Short.MAX_VALUE))
         );
@@ -307,6 +314,27 @@ public class FormPenjual extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TbPenjualMouseClicked
 
+    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+        // TODO add your handling code here:
+        try {
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+
+            String sql = "update tb_penjual set nama='"+ NamaPenjual.getText() + 
+                    "', email ='" + Email.getText() + "',"+ "alamat ='" + AlamatPenjual.getText() + 
+                    "',no_hp = " + NoHp.getText() + " where id_penjual = " + id_penjual;
+
+            int row = st.executeUpdate(sql);
+            if (row == 1) {
+                JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Data Sepatu", JOptionPane.ERROR_MESSAGE);
+        }
+        load_table();
+    }//GEN-LAST:event_UpdateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -351,8 +379,8 @@ public class FormPenjual extends javax.swing.JFrame {
     private javax.swing.JTextField Email;
     private javax.swing.JTextField NamaPenjual;
     private javax.swing.JTextField NoHp;
-    private javax.swing.JButton Save;
     private javax.swing.JTable TbPenjual;
+    private javax.swing.JButton Update;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
