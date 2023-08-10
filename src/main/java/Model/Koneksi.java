@@ -13,7 +13,7 @@ import java.sql.*;
  */
 public class Koneksi {
     private static Connection mysqlkonek;
-    private static Connection koneksiDB() throws SQLException{
+    public static Connection koneksiDB() throws SQLException{
         if(mysqlkonek == null){
             try {
                  String DB = "jdbc:mysql://localhost:3306/penjualan-sepatu";

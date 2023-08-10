@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Agu 2023 pada 14.20
+-- Waktu pembuatan: 10 Agu 2023 pada 01.49
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.1.17
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `penjualan`
+-- Database: `penjualan-sepatu`
 --
 
 -- --------------------------------------------------------
