@@ -158,6 +158,11 @@ public class FormPenjual extends javax.swing.JFrame {
         });
 
         Clear.setText("CLEAR");
+        Clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearActionPerformed(evt);
+            }
+        });
 
         TbPenjual.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -334,6 +339,14 @@ public class FormPenjual extends javax.swing.JFrame {
         }
         load_table();
     }//GEN-LAST:event_UpdateActionPerformed
+
+    private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
+        // TODO add your handling code here:
+        NamaPenjual.setText("");
+        AlamatPenjual.setText("");
+        Email.setText("");
+        NoHp.setText("");
+    }//GEN-LAST:event_ClearActionPerformed
 
     /**
      * @param args the command line arguments
