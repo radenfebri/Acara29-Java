@@ -31,7 +31,7 @@ public class FormPenjual extends javax.swing.JFrame {
     private void load_table() {
 //        membuat object baru
         DefaultTableModel model = new DefaultTableModel();
-//        membuat column untuk field tabel penjual
+//        membuat column untuk field tabel
         model.addColumn("No. Penjual");
         model.addColumn("Nama Penjual");
         model.addColumn("Email");
@@ -40,11 +40,11 @@ public class FormPenjual extends javax.swing.JFrame {
 
 //        mengambil data dari database
         try {
-            String sql = "SELECT * from tb_penjual"; // query memanggil semua data di tb_penjual
+            String sql = "SELECT * from tb_penjual"; // variable berisi query SQL
             java.sql.Connection conn = (Connection) Koneksi.koneksiDB(); // membuat koneksi baru ke database
-            java.sql.Statement stm = conn.createStatement(); // membuat Statement SQL
+            java.sql.Statement stm = conn.createStatement(); // membuat SQL server statement untuk dikirm ke database
             java.sql.ResultSet res = stm.executeQuery(sql); // mengeksekusi statement SQL
-//            membuat looping untuk menampilkan semua data
+//            membuat looping untuk menampilkan semua baris data
             while (res.next()) {
                 model.addRow(new Object[]{
                     res.getInt(1), 
@@ -54,11 +54,12 @@ public class FormPenjual extends javax.swing.JFrame {
                     res.getInt(5),
                 });
             }
-//            sout buat apa? tidak ada yang di tampilkan
+//            menampilkan data di console untuk debuging
             System.out.println("Data: " + res);
-//            mengisi table 
+//            mengisi Jtabel di UI
             TbPenjual.setModel(model);
         } catch (Exception e) {
+//            menampilkan eror di console
             System.out.println("Error Found: " + e);
         }
     }
@@ -297,21 +298,30 @@ public class FormPenjual extends javax.swing.JFrame {
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
         try {
+//            membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
+//            Membuat query dan langsung mengisinya saat dipanggil
             String sql = "insert into tb_penjual(nama,alamat,email,no_hp) "
-                    + "values ('" + NamaPenjual.getText() + "', '" + AlamatPenjual.getText() + "', '" + Email.getText()+ "', '" + NoHp.getText() + "')";
-            int row = st.executeUpdate(sql);
+                    + "values ('" + NamaPenjual.getText() + "', '" + AlamatPenjual.getText() + "', '" 
+                    + Email.getText()+ "', '" + NoHp.getText() + "')";
+            int row = st.executeUpdate(sql); //eksekusi query sql
 
             if (row == 1) {
-                JOptionPane.showMessageDialog(null, "Sukses menambahkan barang", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+//                menampilkan UI pop up berhasil
+                JOptionPane.showMessageDialog(null, "Sukses menambahkan barang", 
+                        "Data Barang", JOptionPane.INFORMATION_MESSAGE);
 
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e, "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+//            menampilkan pop up eror
+            JOptionPane.showMessageDialog(null, e, "Data Barang", 
+                    JOptionPane.INFORMATION_MESSAGE);
+//            menampilkan eror
             System.out.println("gagal menambah kedalam database \n" + e);
         }
+//        memanggil method load table
         load_table();
     }//GEN-LAST:event_AddActionPerformed
 
@@ -342,12 +352,13 @@ public class FormPenjual extends javax.swing.JFrame {
 
     private void TbPenjualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbPenjualMouseClicked
         // TODO add your handling code here:
+//        mengisi JTextField dengan data yang telah terload saat klik salah satu data di Jtable
         id_penjual = TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 0).toString();
         NamaPenjual.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 1).toString());
         Email.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 2).toString());
         AlamatPenjual.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 3).toString());
         NoHp.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 4).toString());
-        
+            
         boolean editTbl = TbPenjual.isEditing();
         if (editTbl == false) {
             JOptionPane.showMessageDialog(null, "Sukses memilih Data Sepatu", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
