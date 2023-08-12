@@ -37,6 +37,7 @@ public class FormPenjual extends javax.swing.JFrame {
         model.addColumn("Email");
         model.addColumn("Alamat");
         model.addColumn("Nomor HP");
+        model.addColumn("Password");
 
 //        mengambil data dari database
         try {
@@ -52,6 +53,7 @@ public class FormPenjual extends javax.swing.JFrame {
                     res.getString(3),
                     res.getString(4),
                     res.getInt(5),
+                    res.getInt(6),
                 });
             }
 //            sout buat apa? tidak ada yang di tampilkan
@@ -90,6 +92,8 @@ public class FormPenjual extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         TbPenjual = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        Password = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,19 +199,32 @@ public class FormPenjual extends javax.swing.JFrame {
             }
         });
 
+        Password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PasswordActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jButton1)
+                .addGap(321, 321, 321)
+                .addComponent(jLabel3)
+                .addGap(35, 35, 35))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(321, 321, 321)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Add)
                                 .addGap(18, 18, 18)
@@ -215,28 +232,30 @@ public class FormPenjual extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(Clear)
                                 .addGap(18, 18, 18)
-                                .addComponent(Delete))
+                                .addComponent(Delete)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(AlamatPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(NamaPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(35, 35, 35))
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(AlamatPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(NamaPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,13 +284,17 @@ public class FormPenjual extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Add)
                     .addComponent(Delete)
                     .addComponent(Update)
                     .addComponent(Clear))
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         pack();
@@ -300,8 +323,8 @@ public class FormPenjual extends javax.swing.JFrame {
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
-            String sql = "insert into tb_penjual(nama,alamat,email,no_hp) "
-                    + "values ('" + NamaPenjual.getText() + "', '" + AlamatPenjual.getText() + "', '" + Email.getText()+ "', '" + NoHp.getText() + "')";
+            String sql = "insert into tb_penjual(nama,alamat,email,no_hp, password) "
+                    + "values ('" + NamaPenjual.getText() + "', '" + AlamatPenjual.getText() + "', '" + Email.getText()+ "', '" + NoHp.getText() + "','" + Password.getText() + "')";
             int row = st.executeUpdate(sql);
 
             if (row == 1) {
@@ -347,6 +370,7 @@ public class FormPenjual extends javax.swing.JFrame {
         Email.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 2).toString());
         AlamatPenjual.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 3).toString());
         NoHp.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 4).toString());
+        Password.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 5).toString());
         
         boolean editTbl = TbPenjual.isEditing();
         if (editTbl == false) {
@@ -362,8 +386,9 @@ public class FormPenjual extends javax.swing.JFrame {
             Statement st = con.createStatement();
 
             String sql = "update tb_penjual set nama='"+ NamaPenjual.getText() + 
+                    "',password ='" + Password.getText() +
                     "', email ='" + Email.getText() + "',"+ "alamat ='" + AlamatPenjual.getText() + 
-                    "',no_hp = " + NoHp.getText() + " where id_penjual = " + id_penjual;
+                    "',no_hp = " + NoHp.getText() +  " where id_penjual = " + id_penjual;
 
             int row = st.executeUpdate(sql);
             if (row == 1) {
@@ -381,7 +406,12 @@ public class FormPenjual extends javax.swing.JFrame {
         AlamatPenjual.setText("");
         Email.setText("");
         NoHp.setText("");
+        Password.setText("");
     }//GEN-LAST:event_ClearActionPerformed
+
+    private void PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -427,12 +457,14 @@ public class FormPenjual extends javax.swing.JFrame {
     private javax.swing.JTextField Email;
     private javax.swing.JTextField NamaPenjual;
     private javax.swing.JTextField NoHp;
+    private javax.swing.JTextField Password;
     private javax.swing.JTable TbPenjual;
     private javax.swing.JButton Update;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
