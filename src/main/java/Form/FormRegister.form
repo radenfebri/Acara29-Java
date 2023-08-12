@@ -28,7 +28,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel13" min="-2" pref="109" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Nama1" min="-2" pref="216" max="-2" attributes="0"/>
+                      <Component id="Nama" min="-2" pref="216" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -64,7 +64,7 @@
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="Add" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="NoHp" min="-2" pref="216" max="-2" attributes="0"/>
+                                      <Component id="NoHp" alignment="0" min="-2" pref="216" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -83,7 +83,7 @@
               <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                  <Component id="Nama1" min="-2" max="-2" attributes="0"/>
+                  <Component id="Nama" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -95,10 +95,10 @@
                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Password" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="NoHp" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                  <Component id="NoHp" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -110,7 +110,7 @@
                   <Component id="Add" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Add1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="187" max="32767" attributes="0"/>
+              <EmptySpace pref="190" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -148,6 +148,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="Password">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PasswordActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Add1">
       <Properties>
@@ -162,8 +165,6 @@
         <Property name="text" type="java.lang.String" value="No Hp"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="NoHp">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nama"/>
@@ -176,7 +177,9 @@
     </Component>
     <Component class="javax.swing.JTextField" name="Alamat">
     </Component>
-    <Component class="javax.swing.JTextField" name="Nama1">
+    <Component class="javax.swing.JTextField" name="Nama">
+    </Component>
+    <Component class="javax.swing.JTextField" name="NoHp">
     </Component>
   </SubComponents>
 </Form>

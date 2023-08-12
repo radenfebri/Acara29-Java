@@ -47,7 +47,6 @@ public class FormTransaksi extends javax.swing.JFrame {
         TBPembelian = new javax.swing.JTable();
         NamaPerusahaan1 = new javax.swing.JTextField();
         ComboPembeli = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,20 +136,12 @@ public class FormTransaksi extends javax.swing.JFrame {
 
         ComboPembeli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Kembali");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(296, 296, 296)
+                .addGap(370, 370, 370)
                 .addComponent(jLabel3)
                 .addContainerGap(432, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -202,9 +193,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton1))
+                .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -278,14 +267,6 @@ public class FormTransaksi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NamaPerusahaan1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        FormMaster fmkembali = new FormMaster();
-        fmkembali.show();
-
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -340,7 +321,6 @@ public class FormTransaksi extends javax.swing.JFrame {
     private javax.swing.JTextField NoTransaksi;
     private javax.swing.JButton Save;
     private javax.swing.JTable TBPembelian;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -5,6 +5,7 @@
 package Form;
 import Model.Koneksi;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -14,6 +15,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Alvin
  */
 public class FormLoginPenjual extends javax.swing.JFrame {
+    Connection con;
+    Statement stat;
+    ResultSet rs;
+    String sql;
 
     /**
      * Creates new form FormPembeli
@@ -21,36 +26,8 @@ public class FormLoginPenjual extends javax.swing.JFrame {
 //    private String id_pembeli;
     public FormLoginPenjual() {
         initComponents();
-//        load_table();
     }
-// private void load_table() {
-//        DefaultTableModel model = new DefaultTableModel();
-//        model.addColumn("No. Pembeli");
-//        model.addColumn("Nama Pembeli");
-//        model.addColumn("Email");
-//        model.addColumn("Alamat");
-//        model.addColumn("No Hp");
-//
-//        try {
-//            String sql = "SELECT * from tb_pembeli";
-//            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
-//            java.sql.Statement stm = conn.createStatement();
-//            java.sql.ResultSet res = stm.executeQuery(sql);
-//            while (res.next()) {
-//                model.addRow(new Object[]{
-//                    res.getInt(1), 
-//                    res.getString(2), 
-//                    res.getString(3),
-//                    res.getString(4),
-//                    res.getInt(5),
-//                });
-//            }
-//            System.out.println("Data: " + res);
-//            TbPembeli.setModel(model);
-//        } catch (Exception e) {
-//            System.out.println("Error Found: " + e);
-//        }
-//    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,13 +38,13 @@ public class FormLoginPenjual extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Email = new javax.swing.JTextField();
+        EmailPenjual = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        Add = new javax.swing.JButton();
+        LoginPenjual = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        Password = new javax.swing.JPasswordField();
+        PasswordPenjual = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,9 +59,9 @@ public class FormLoginPenjual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Email.addActionListener(new java.awt.event.ActionListener() {
+        EmailPenjual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailActionPerformed(evt);
+                EmailPenjualActionPerformed(evt);
             }
         });
 
@@ -99,10 +76,10 @@ public class FormLoginPenjual extends javax.swing.JFrame {
 
         jLabel11.setText("Password");
 
-        Add.setText("LOGIN");
-        Add.addActionListener(new java.awt.event.ActionListener() {
+        LoginPenjual.setText("LOGIN");
+        LoginPenjual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddActionPerformed(evt);
+                LoginPenjualActionPerformed(evt);
             }
         });
 
@@ -121,16 +98,16 @@ public class FormLoginPenjual extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Add)
+                    .addComponent(LoginPenjual)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(EmailPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(Password))))
+                            .addComponent(PasswordPenjual))))
                 .addGap(270, 270, 270))
         );
         layout.setVerticalGroup(
@@ -144,13 +121,13 @@ public class FormLoginPenjual extends javax.swing.JFrame {
                 .addGap(106, 106, 106)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EmailPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PasswordPenjual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
-                .addComponent(Add)
+                .addComponent(LoginPenjual)
                 .addContainerGap(228, Short.MAX_VALUE))
         );
 
@@ -158,9 +135,9 @@ public class FormLoginPenjual extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
+    private void EmailPenjualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailPenjualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_EmailActionPerformed
+    }//GEN-LAST:event_EmailPenjualActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -170,27 +147,34 @@ public class FormLoginPenjual extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
+    private void LoginPenjualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginPenjualActionPerformed
         // TODO add your handling code here:
-//        try {
-//            Koneksi ObjKoneksi = new Koneksi();
-//            Connection con = ObjKoneksi.koneksiDB();
-//            Statement st = con.createStatement();
-//            String sql = "insert into tb_pembeli(nama,email,alamat,no_hp) "
-//                    + "values ('" + NamaPembeli.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "')";
-//            int row = st.executeUpdate(sql);
-//
-//            if (row == 1) {
-//                JOptionPane.showMessageDialog(null, "Sukses menambahkan data pembeli", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
-//
-//            }
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, e, "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
-//            System.out.println("gagal menambah kedalam database \n" + e);
-//        }
-//        load_table();
-                        
-    }//GEN-LAST:event_AddActionPerformed
+       try {
+            String email = null;
+            sql = "SELECT * FROM tb_penjual WHERE email='" + EmailPenjual.getText() + "' AND password='" + PasswordPenjual.getText() + "'";
+            con = (Connection) Koneksi.koneksiDB();
+            stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            System.out.println(rs);
+            if (rs.next()) {
+                email = rs.getString("email");
+                if (EmailPenjual.getText().equals(rs.getString("email")) && PasswordPenjual.getText().equals(rs.getString("password"))) {
+                    JOptionPane.showMessageDialog(null, "Berhasil Login");
+                    UserSession.setEmail(email);
+   
+                    new FormMaster().setVisible(true);
+                    this.dispose();
+
+                }
+            } else if (EmailPenjual.getText().isEmpty() && PasswordPenjual.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Anda Belum Memasukkan Email dan Password");
+            } else {
+                JOptionPane.showMessageDialog(null, "Email atau Password Kurang Benar");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }                        
+    }//GEN-LAST:event_LoginPenjualActionPerformed
 
     private void Add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add1ActionPerformed
         // TODO add your handling code here:
@@ -239,9 +223,9 @@ public class FormLoginPenjual extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Add;
-    private javax.swing.JTextField Email;
-    private javax.swing.JPasswordField Password;
+    private javax.swing.JTextField EmailPenjual;
+    private javax.swing.JButton LoginPenjual;
+    private javax.swing.JPasswordField PasswordPenjual;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
