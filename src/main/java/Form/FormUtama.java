@@ -106,7 +106,7 @@ public class FormUtama extends javax.swing.JFrame {
 
     private void LoginPembeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginPembeliActionPerformed
         // TODO add your handling code here:
-        FormLogin fmloginpembli = new FormLogin();
+        FormLoginPembeli fmloginpembli = new FormLoginPembeli();
         fmloginpembli.show();
         
         dispose();

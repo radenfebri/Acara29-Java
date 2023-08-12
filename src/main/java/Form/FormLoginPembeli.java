@@ -5,6 +5,7 @@
 package Form;
 import Model.Koneksi;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -13,44 +14,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Alvin
  */
-public class FormLogin extends javax.swing.JFrame {
+public class FormLoginPembeli extends javax.swing.JFrame {
+    Connection con;
+    Statement stat;
+    ResultSet rs;
+    String sql;
 
     /**
      * Creates new form FormPembeli
      */
 //    private String id_pembeli;
-    public FormLogin() {
+    public FormLoginPembeli() {
         initComponents();
-//        load_table();
+        Koneksi DB = new Koneksi();
     }
-// private void load_table() {
-//        DefaultTableModel model = new DefaultTableModel();
-//        model.addColumn("No. Pembeli");
-//        model.addColumn("Nama Pembeli");
-//        model.addColumn("Email");
-//        model.addColumn("Alamat");
-//        model.addColumn("No Hp");
-//
-//        try {
-//            String sql = "SELECT * from tb_pembeli";
-//            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
-//            java.sql.Statement stm = conn.createStatement();
-//            java.sql.ResultSet res = stm.executeQuery(sql);
-//            while (res.next()) {
-//                model.addRow(new Object[]{
-//                    res.getInt(1), 
-//                    res.getString(2), 
-//                    res.getString(3),
-//                    res.getString(4),
-//                    res.getInt(5),
-//                });
-//            }
-//            System.out.println("Data: " + res);
-//            TbPembeli.setModel(model);
-//        } catch (Exception e) {
-//            System.out.println("Error Found: " + e);
-//        }
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -183,29 +160,33 @@ public class FormLogin extends javax.swing.JFrame {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
-//        try {
-//            Koneksi ObjKoneksi = new Koneksi();
-//            Connection con = ObjKoneksi.koneksiDB();
-//            Statement st = con.createStatement();
-//            String sql = "insert into tb_pembeli(nama,email,alamat,no_hp) "
-//                    + "values ('" + NamaPembeli.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "')";
-//            int row = st.executeUpdate(sql);
-//
-//            if (row == 1) {
-//                JOptionPane.showMessageDialog(null, "Sukses menambahkan data pembeli", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
-//
-//            }
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, e, "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
-//            System.out.println("gagal menambah kedalam database \n" + e);
-//        }
-//        load_table();
-                        
+        try {
+            String email = null;
+            sql = "SELECT * FROM tb_pembeli WHERE email='" + Email.getText() + "' AND password='" + Password.getText() + "'";
+            rs = stat.executeQuery(sql);
+            if (rs.next()) {
+                email = rs.getString("email");
+                if (Email.getText().equals(rs.getString("email")) && Password.getText().equals(rs.getString("password"))) {
+                    JOptionPane.showMessageDialog(null, "Berhasil Login");
+                    UserSession.setEmail(email);
+   
+                    new FormTransaksi().setVisible(true);
+                    this.dispose();
+
+                }
+            } else if (Email.getText().isEmpty() && Password.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Anda Belum Memasukkan Email dan Password");
+            } else {
+                JOptionPane.showMessageDialog(null, "Email atau Password Kurang Benar");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_AddActionPerformed
 
     private void Add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add1ActionPerformed
         // TODO add your handling code here:
-         FormRegister fmregis = new FormRegister();
+        FormRegister fmregis = new FormRegister();
         fmregis.show();
         
         dispose();
@@ -228,14 +209,18 @@ public class FormLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLoginPembeli.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLoginPembeli.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLoginPembeli.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLoginPembeli.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -244,7 +229,7 @@ public class FormLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormLogin().setVisible(true);
+                new FormLoginPembeli().setVisible(true);
             }
         });
     }

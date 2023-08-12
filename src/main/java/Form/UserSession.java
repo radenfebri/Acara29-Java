@@ -12,7 +12,9 @@ package Form;
 public class UserSession {
 
     private static int stok, harga;
-    private static String nama;
+    private static String nama;   
+    private static String email;
+
 
     public static String getNama() {
         return nama;
@@ -20,6 +22,10 @@ public class UserSession {
 
     public static void setNama(String nama) {
         UserSession.nama = nama;
+    }
+    
+    public static void setEmail(String email) {
+        UserSession.email = email;
     }
 
     public static int getStok() {
