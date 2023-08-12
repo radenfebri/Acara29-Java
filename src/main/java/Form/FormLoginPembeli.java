@@ -26,7 +26,6 @@ public class FormLoginPembeli extends javax.swing.JFrame {
 //    private String id_pembeli;
     public FormLoginPembeli() {
         initComponents();
-        Koneksi DB = new Koneksi();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -163,7 +162,10 @@ public class FormLoginPembeli extends javax.swing.JFrame {
         try {
             String email = null;
             sql = "SELECT * FROM tb_pembeli WHERE email='" + Email.getText() + "' AND password='" + Password.getText() + "'";
+            con = (Connection) Koneksi.koneksiDB();
+            stat = con.createStatement();
             rs = stat.executeQuery(sql);
+            System.out.println(rs);
             if (rs.next()) {
                 email = rs.getString("email");
                 if (Email.getText().equals(rs.getString("email")) && Password.getText().equals(rs.getString("password"))) {

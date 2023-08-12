@@ -11,9 +11,7 @@ package Form;
  */
 public class UserSession {
 
-    private static int stok, harga;
-    private static String nama;   
-    private static String email;
+    private static String nama, email;   
 
 
     public static String getNama() {
@@ -24,23 +22,11 @@ public class UserSession {
         UserSession.nama = nama;
     }
     
+    public static String getEmail() {
+        return email;
+    }
+    
     public static void setEmail(String email) {
         UserSession.email = email;
-    }
-
-    public static int getStok() {
-        return stok;
-    }
-
-    public static void setStok(int stok) {
-        UserSession.stok = stok;
-    }
-
-    public static int getHarga() {
-        return harga;
-    }
-
-    public static void setHarga(int harga) {
-        UserSession.harga = harga;
     }
 }
