@@ -259,6 +259,7 @@ public class FormPembeli extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void NamaPembeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamaPembeliActionPerformed
