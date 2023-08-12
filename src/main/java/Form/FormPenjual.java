@@ -29,18 +29,22 @@ public class FormPenjual extends javax.swing.JFrame {
     }
     
     private void load_table() {
+//        membuat object baru
         DefaultTableModel model = new DefaultTableModel();
+//        membuat column untuk field tabel penjual
         model.addColumn("No. Penjual");
         model.addColumn("Nama Penjual");
         model.addColumn("Email");
         model.addColumn("Alamat");
         model.addColumn("Nomor HP");
 
+//        mengambil data dari database
         try {
-            String sql = "SELECT * from tb_penjual";
-            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet res = stm.executeQuery(sql);
+            String sql = "SELECT * from tb_penjual"; // query memanggil semua data di tb_penjual
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB(); // membuat koneksi baru ke database
+            java.sql.Statement stm = conn.createStatement(); // membuat Statement SQL
+            java.sql.ResultSet res = stm.executeQuery(sql); // mengeksekusi statement SQL
+//            membuat looping untuk menampilkan semua data
             while (res.next()) {
                 model.addRow(new Object[]{
                     res.getInt(1), 
@@ -50,6 +54,7 @@ public class FormPenjual extends javax.swing.JFrame {
                     res.getInt(5),
                 });
             }
+//            sout buat apa?
             System.out.println("Data: " + res);
             TbPenjual.setModel(model);
         } catch (Exception e) {
