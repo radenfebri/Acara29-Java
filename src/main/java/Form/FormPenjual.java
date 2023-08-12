@@ -54,8 +54,9 @@ public class FormPenjual extends javax.swing.JFrame {
                     res.getInt(5),
                 });
             }
-//            sout buat apa?
+//            sout buat apa? tidak ada yang di tampilkan
             System.out.println("Data: " + res);
+//            mengisi table 
             TbPenjual.setModel(model);
         } catch (Exception e) {
             System.out.println("Error Found: " + e);
