@@ -19,10 +19,10 @@ public class FormLoginPenjual extends javax.swing.JFrame {
      * Creates new form FormPembeli
      */
 //    private String id_pembeli;
-//    public FormLoginPenjual() {
-//        initComponents();
+    public FormLoginPenjual() {
+        initComponents();
 //        load_table();
-//    }
+    }
 // private void load_table() {
 //        DefaultTableModel model = new DefaultTableModel();
 //        model.addColumn("No. Pembeli");

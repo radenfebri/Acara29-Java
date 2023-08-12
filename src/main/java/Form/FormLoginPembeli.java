@@ -19,10 +19,10 @@ public class FormLoginPembeli extends javax.swing.JFrame {
      * Creates new form FormPembeli
      */
 //    private String id_pembeli;
-//    public FormLoginPembeli() {
-//        initComponents();
+    public FormLoginPembeli() {
+        initComponents();
 //        load_table();
-//    }
+    }
 // private void load_table() {
 //        DefaultTableModel model = new DefaultTableModel();
 //        model.addColumn("No. Pembeli");
