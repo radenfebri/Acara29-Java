@@ -28,6 +28,7 @@ public class FormPenjual extends javax.swing.JFrame {
         load_table();
     }
     
+    // memunculkan tabel ke dalam interface JTable
     private void load_table() {
 //        membuat object baru
         DefaultTableModel model = new DefaultTableModel();
@@ -58,7 +59,7 @@ public class FormPenjual extends javax.swing.JFrame {
             }
 //            menampilkan data di console untuk debuging
             System.out.println("Data: " + res);
-//            mengisi Jtabel di UI
+//            mengisi Jtabel
             TbPenjual.setModel(model);
         } catch (Exception e) {
 //            menampilkan eror di console
@@ -318,103 +319,124 @@ public class FormPenjual extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NoHpActionPerformed
 
+    // menambahkan data
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
         try {
-//            membuat koneksi baru
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
 
-            //            Membuat query dan langsung mengisinya saat dipanggil
+            // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "insert into tb_penjual(nama,alamat,email,no_hp, password) "
                     + "values ('" + NamaPenjual.getText() + "', '" + AlamatPenjual.getText() 
                     + "', '" + Email.getText()+ "', '" + NoHp.getText() + "','" + Password.getText() + "')";
             int row = st.executeUpdate(sql);  //eksekusi query sql
 
             if (row == 1) {
-//                menampilkan UI pop up berhasil
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Sukses menambahkan barang", 
                         "Data Barang", JOptionPane.INFORMATION_MESSAGE);
-
             }
         } catch (SQLException e) {
 //            menampilkan pop up eror
             JOptionPane.showMessageDialog(null, e, "Data Barang", 
                     JOptionPane.INFORMATION_MESSAGE);
-//            menampilkan eror
+//            menampilkan eror pada console
             System.out.println("gagal menambah kedalam database \n" + e);
         }
-//        memanggil method load table
+//        menampilkan table
         load_table();
     }//GEN-LAST:event_AddActionPerformed
 
+    // menghapus data yang dipilih
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:\
         try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
-            Statement st = con.createStatement();
+            Statement st = con.createStatement();   
+            // inisiasi sql statement
             String sql = "delete from tb_penjual where id_penjual = " + id_penjual;
             int row = st.executeUpdate(sql);
+            
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up gagal
             JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Sepatu", JOptionPane.ERROR_MESSAGE);
         }
+        // menampilkan tabel
         load_table();
     }//GEN-LAST:event_DeleteActionPerformed
 
+    // tombol kembali ke menu utama
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        // membuat objek
         FormMaster fmkembali = new FormMaster();
+        // menampilkan menu utama
         fmkembali.show();
 
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // memilih data
     private void TbPenjualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbPenjualMouseClicked
         // TODO add your handling code here:
-//        mengisi JTextField dengan data yang telah terload saat klik salah satu data di Jtable
+        // mengisi JTextField dengan data yang telah dipilih pada di Jtable
         id_penjual = TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 0).toString();
         NamaPenjual.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 1).toString());
         Email.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 2).toString());
         AlamatPenjual.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 3).toString());
         NoHp.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 4).toString());
 
+        // menampilkan data password
         Password.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 5).toString());
-        
+        // menampilkan status pengeditan pada JTable
         boolean editTbl = TbPenjual.isEditing();
         if (editTbl == false) {
+            // menampilkan UI pop up berhasil
             JOptionPane.showMessageDialog(null, "Sukses memilih Data Sepatu", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_TbPenjualMouseClicked
 
+    // mengupdate data
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
         try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
-
+            // membuat statement SQL
             String sql = "update tb_penjual set nama='"+ NamaPenjual.getText() + 
                     "',password ='" + Password.getText() +
                     "', email ='" + Email.getText() + "',"+ "alamat ='" + AlamatPenjual.getText() + 
                     "',no_hp = " + NoHp.getText() +  " where id_penjual = " + id_penjual;
 
+            // eksekusi SQL
             int row = st.executeUpdate(sql);
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up gagal
             JOptionPane.showMessageDialog(null, e, "Data Sepatu", JOptionPane.ERROR_MESSAGE);
         }
+        // menampilkan tabel pada JTable
         load_table();
     }//GEN-LAST:event_UpdateActionPerformed
 
+    // mengosongkan semua JTextField
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
         // TODO add your handling code here:
+        // mengatur semua jenis JTextField menjadi null
         NamaPenjual.setText("");
         AlamatPenjual.setText("");
         Email.setText("");
