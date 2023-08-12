@@ -191,6 +191,14 @@ public class FormLoginPenjual extends javax.swing.JFrame {
 //        load_table();
                         
     }//GEN-LAST:event_AddActionPerformed
+
+    private void Add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add1ActionPerformed
+        // TODO add your handling code here:
+         FormRegister fmregister = new FormRegister();
+        fmregister.show();
+        
+        dispose();
+    }//GEN-LAST:event_Add1ActionPerformed
  
     /**
      * @param args the command line arguments
