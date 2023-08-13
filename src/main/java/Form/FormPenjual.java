@@ -53,8 +53,8 @@ public class FormPenjual extends javax.swing.JFrame {
                     res.getString(2), 
                     res.getString(3),
                     res.getString(4),
-                    res.getInt(5),
-                    res.getInt(6),
+                    res.getString(5),
+                    res.getString(6),
                 });
             }
 //            menampilkan data di console untuk debuging
