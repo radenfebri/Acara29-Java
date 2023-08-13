@@ -30,6 +30,7 @@ public class FormTransaksi extends javax.swing.JFrame {
     public FormTransaksi() {
         initComponents();
         load_table();
+        transaction_table();
         TxtNama.setText(nama);
         TxtAlamat.setText(alamat);
         
@@ -71,6 +72,42 @@ public class FormTransaksi extends javax.swing.JFrame {
             }
             System.out.println("Data: " + res);
             TbBarang.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error Found: " + e);
+        }
+    }
+    
+    private void transaction_table() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No. Invoice");
+        model.addColumn("Nama");
+        model.addColumn("Alamat");
+        model.addColumn("Barang");
+        model.addColumn("Qty");
+        model.addColumn("Grand Total");
+        model.addColumn("Status");
+
+        try {
+            String sql = "SELECT CONCAT('INV/', no_invoice, '/', YEAR(CURDATE())), nama_pembeli, alamat, tb_barang.nama_barang, qty, grand_total, IF(is_confirm=1, 'Diterima', 'On Progress')  "
+                    + "from tb_transaksi "
+                    + "left Join tb_barang on tb_barang.id_barang = tb_transaksi.id_barang "
+                    + "where id_pembeli = " + id;
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                model.addRow(new Object[]{
+                    res.getString(1), 
+                    res.getString(2), 
+                    res.getString(3),
+                    res.getString(4),
+                    res.getInt(5),
+                    res.getInt(6),
+                    res.getString(7),
+                });
+            }
+            System.out.println("Data: " + res);
+            TBTransaksi.setModel(model);
         } catch (Exception e) {
             System.out.println("Error Found: " + e);
         }
@@ -154,13 +191,13 @@ public class FormTransaksi extends javax.swing.JFrame {
 
         TBTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "No Invoice", "Nama Pembeli", "Nama Barang", "Qty", "Grand Total"
+
             }
         ));
         jScrollPane3.setViewportView(TBTransaksi);
@@ -304,7 +341,39 @@ public class FormTransaksi extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
-        System.out.println(ComboBarang.getSelectedItem());
+        try {
+            
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            
+            String sql_barang = "SELECT * from tb_barang where nama_barang = '" + ComboBarang.getSelectedItem() + "' ORDER BY id_barang DESC LIMIT 1";
+            java.sql.ResultSet res = st.executeQuery(sql_barang);
+            
+            String harga = "";
+            String stok = "";
+            if (res.next()) {
+                id_barang = res.getString("id_barang");
+                harga = res.getString("harga_barang");
+                stok = res.getString("stok_barang");
+            }
+            
+            String sql = "insert into tb_transaksi(id_pembeli,nama_pembeli,alamat,id_barang, qty, grand_total) "
+                    + "values ('" + id + "', '" + TxtNama.getText() + "', '" + TxtAlamat.getText()+ "', " + id_barang + ", " + TxtQty.getText() + ", " + Integer.parseInt(TxtQty.getText()) * Integer.parseInt(harga) + ")";
+            int row = st.executeUpdate(sql);
+
+            if (row == 1) {
+                String sql_update_barang = "update tb_barang set stok_barang= " + (Integer.parseInt(stok) - Integer.parseInt(TxtQty.getText())) + " where id_barang = " + id_barang;
+                st.executeUpdate(sql_update_barang);
+                
+                JOptionPane.showMessageDialog(null, "Sukses menambahkan transaksi", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Data Transaksi", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("gagal menambah kedalam database \n" + e);
+        }
+        load_table();
+        transaction_table();
     }//GEN-LAST:event_SaveActionPerformed
 
     private void TxtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNamaActionPerformed
