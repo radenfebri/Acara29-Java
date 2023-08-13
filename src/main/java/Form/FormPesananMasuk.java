@@ -26,23 +26,14 @@ public class FormPesananMasuk extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Edit = new javax.swing.JButton();
         Delete = new javax.swing.JButton();
         Save = new javax.swing.JButton();
-        Clear = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         TBPembelian = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        Edit.setText("EDIT");
-        Edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditActionPerformed(evt);
-            }
-        });
 
         Delete.setText("DELETE");
         Delete.addActionListener(new java.awt.event.ActionListener() {
@@ -57,8 +48,6 @@ public class FormPesananMasuk extends javax.swing.JFrame {
                 SaveActionPerformed(evt);
             }
         });
-
-        Clear.setText("CLEAR");
 
         TBPembelian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -99,12 +88,7 @@ public class FormPesananMasuk extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Save)
                                 .addGap(18, 18, 18)
-                                .addComponent(Edit)
-                                .addGap(18, 18, 18)
-                                .addComponent(Clear)
-                                .addGap(18, 18, 18)
-                                .addComponent(Delete)
-                                .addGap(476, 476, 476))
+                                .addComponent(Delete))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -119,8 +103,6 @@ public class FormPesananMasuk extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Save)
-                    .addComponent(Edit)
-                    .addComponent(Clear)
                     .addComponent(Delete))
                 .addContainerGap(182, Short.MAX_VALUE))
         );
@@ -128,10 +110,6 @@ public class FormPesananMasuk extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EditActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
@@ -186,9 +164,7 @@ public class FormPesananMasuk extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Clear;
     private javax.swing.JButton Delete;
-    private javax.swing.JButton Edit;
     private javax.swing.JButton Save;
     private javax.swing.JTable TBPembelian;
     private javax.swing.JButton jButton1;

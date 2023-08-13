@@ -12,8 +12,16 @@ package Form;
 public class UserSession {
 
     private static String nama, email;   
+    private static int id;   
 
+    public static int getID() {
+        return id;
+    }
 
+    public static void setID(int id) {
+        UserSession.id = id;
+    }
+    
     public static String getNama() {
         return nama;
     }

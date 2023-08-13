@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Agu 2023 pada 13.21
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.1.17
+-- Generation Time: Aug 13, 2023 at 09:04 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_barang`
+-- Table structure for table `tb_barang`
 --
 
 CREATE TABLE `tb_barang` (
@@ -33,10 +33,10 @@ CREATE TABLE `tb_barang` (
   `merk_barang` varchar(255) NOT NULL,
   `harga_barang` int(25) NOT NULL,
   `stok_barang` int(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_barang`
+-- Dumping data for table `tb_barang`
 --
 
 INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `merk_barang`, `harga_barang`, `stok_barang`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `merk_barang`, `harga_baran
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_pembeli`
+-- Table structure for table `tb_pembeli`
 --
 
 CREATE TABLE `tb_pembeli` (
@@ -58,20 +58,20 @@ CREATE TABLE `tb_pembeli` (
   `alamat` text NOT NULL,
   `no_hp` varchar(25) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_pembeli`
+-- Dumping data for table `tb_pembeli`
 --
 
 INSERT INTO `tb_pembeli` (`id_pembeli`, `nama`, `email`, `alamat`, `no_hp`, `password`) VALUES
-(1, 'Supri', 'supri@gmail.com', 'jalanjalan', '4545', ''),
-(2, 'budi', 'budi@gmail.com', 'mdoko', '8484', '');
+(1, 'Supri', 'supri@gmail.com', 'jalanjalan', '4545', '123'),
+(2, 'budi', 'budi@gmail.com', 'mdoko', '8484', '123');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_penjual`
+-- Table structure for table `tb_penjual`
 --
 
 CREATE TABLE `tb_penjual` (
@@ -81,12 +81,19 @@ CREATE TABLE `tb_penjual` (
   `alamat` text NOT NULL,
   `no_hp` varchar(25) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_penjual`
+--
+
+INSERT INTO `tb_penjual` (`id_penjual`, `nama`, `email`, `alamat`, `no_hp`, `password`) VALUES
+(1, 'penjual', 'penjual@mail.com', 'lorem', '076878867', '12345');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_stok`
+-- Table structure for table `tb_stok`
 --
 
 CREATE TABLE `tb_stok` (
@@ -96,12 +103,12 @@ CREATE TABLE `tb_stok` (
   `qty` int(25) NOT NULL,
   `nama_barang` varchar(255) NOT NULL,
   `grand_total` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_supplier`
+-- Table structure for table `tb_supplier`
 --
 
 CREATE TABLE `tb_supplier` (
@@ -110,99 +117,100 @@ CREATE TABLE `tb_supplier` (
   `email` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `no_hp` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_transaksi`
+-- Table structure for table `tb_transaksi`
 --
 
 CREATE TABLE `tb_transaksi` (
   `no_invoice` int(25) NOT NULL,
   `id_pembeli` int(25) NOT NULL,
+  `nama_pembeli` varchar(255) NOT NULL,
   `id_barang` int(25) NOT NULL,
   `id_penjual` int(25) NOT NULL,
   `qty` int(25) NOT NULL,
   `grand_total` int(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `tb_barang`
+-- Indexes for table `tb_barang`
 --
 ALTER TABLE `tb_barang`
   ADD PRIMARY KEY (`id_barang`);
 
 --
--- Indeks untuk tabel `tb_pembeli`
+-- Indexes for table `tb_pembeli`
 --
 ALTER TABLE `tb_pembeli`
   ADD PRIMARY KEY (`id_pembeli`);
 
 --
--- Indeks untuk tabel `tb_penjual`
+-- Indexes for table `tb_penjual`
 --
 ALTER TABLE `tb_penjual`
   ADD PRIMARY KEY (`id_penjual`);
 
 --
--- Indeks untuk tabel `tb_stok`
+-- Indexes for table `tb_stok`
 --
 ALTER TABLE `tb_stok`
   ADD PRIMARY KEY (`no_invoice`);
 
 --
--- Indeks untuk tabel `tb_supplier`
+-- Indexes for table `tb_supplier`
 --
 ALTER TABLE `tb_supplier`
   ADD PRIMARY KEY (`id_supplier`);
 
 --
--- Indeks untuk tabel `tb_transaksi`
+-- Indexes for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
   ADD PRIMARY KEY (`no_invoice`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tb_barang`
+-- AUTO_INCREMENT for table `tb_barang`
 --
 ALTER TABLE `tb_barang`
   MODIFY `id_barang` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_pembeli`
+-- AUTO_INCREMENT for table `tb_pembeli`
 --
 ALTER TABLE `tb_pembeli`
   MODIFY `id_pembeli` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_penjual`
+-- AUTO_INCREMENT for table `tb_penjual`
 --
 ALTER TABLE `tb_penjual`
-  MODIFY `id_penjual` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_penjual` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_stok`
+-- AUTO_INCREMENT for table `tb_stok`
 --
 ALTER TABLE `tb_stok`
   MODIFY `no_invoice` int(25) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_supplier`
+-- AUTO_INCREMENT for table `tb_supplier`
 --
 ALTER TABLE `tb_supplier`
   MODIFY `id_supplier` int(25) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_transaksi`
+-- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
   MODIFY `no_invoice` int(25) NOT NULL AUTO_INCREMENT;

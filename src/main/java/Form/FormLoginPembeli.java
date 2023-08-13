@@ -160,17 +160,19 @@ public class FormLoginPembeli extends javax.swing.JFrame {
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
         try {
-            String email = null;
+            int id = 0;
+            String nama = null;
             sql = "SELECT * FROM tb_pembeli WHERE email='" + Email.getText() + "' AND password='" + Password.getText() + "'";
             con = (Connection) Koneksi.koneksiDB();
             stat = con.createStatement();
             rs = stat.executeQuery(sql);
-            System.out.println(rs);
             if (rs.next()) {
-                email = rs.getString("email");
+                id = rs.getInt("id");
+                nama = rs.getString("nama");
                 if (Email.getText().equals(rs.getString("email")) && Password.getText().equals(rs.getString("password"))) {
                     JOptionPane.showMessageDialog(null, "Berhasil Login");
-                    UserSession.setEmail(email);
+                    UserSession.setID(id);
+                    UserSession.setNama(nama);
    
                     new FormTransaksi().setVisible(true);
                     this.dispose();
