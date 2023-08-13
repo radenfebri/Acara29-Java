@@ -21,8 +21,10 @@ public class FormPenjual extends javax.swing.JFrame {
      * Creates new form FormPenjualan
      */
     
+//    attribute untuk menyimpan id/PK saat mengedit dan menghapus
     private String id_penjual;
     
+//    menampilkan form awal saat kode dieksekusi
     public FormPenjual() {
         initComponents();
         load_table();
@@ -381,7 +383,7 @@ public class FormPenjual extends javax.swing.JFrame {
         FormMaster fmkembali = new FormMaster();
         // menampilkan menu utama
         fmkembali.show();
-
+        // membersihkan data yang disimpan didalam object global
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -397,8 +399,9 @@ public class FormPenjual extends javax.swing.JFrame {
 
         // menampilkan data password
         Password.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 5).toString());
-        // menampilkan status pengeditan pada JTable
+        // melihat status pengeditan pada JTable
         boolean editTbl = TbPenjual.isEditing();
+        // jika pemilihan data gagal
         if (editTbl == false) {
             // menampilkan UI pop up berhasil
             JOptionPane.showMessageDialog(null, "Sukses memilih Data Sepatu", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
