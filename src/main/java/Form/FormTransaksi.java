@@ -10,12 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author febri
  */
 public class FormTransaksi extends javax.swing.JFrame {
+    
+    private String id_barang;
 
     /**
      * Creates new form FormPenjualan
@@ -26,6 +29,7 @@ public class FormTransaksi extends javax.swing.JFrame {
     
     public FormTransaksi() {
         initComponents();
+        load_table();
         TxtNama.setText(nama);
         TxtAlamat.setText(alamat);
         
@@ -39,6 +43,36 @@ public class FormTransaksi extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+    
+    
+    private void load_table() {
+        DefaultTableModel model = new DefaultTableModel();
+//        model.addColumn("No. Barang");
+        model.addColumn("Nama Barang");
+        model.addColumn("Merk Barang");
+        model.addColumn("Harga");
+        model.addColumn("Stok");
+
+        try {
+            String sql = "SELECT * from tb_barang";
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                model.addRow(new Object[]{
+//                    res.getInt(1), 
+                    res.getString(2), 
+                    res.getString(3),
+                    res.getString(4),
+                    res.getInt(5),
+                });
+            }
+            System.out.println("Data: " + res);
+            TbBarang.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error Found: " + e);
         }
     }
 
@@ -67,6 +101,9 @@ public class FormTransaksi extends javax.swing.JFrame {
         ComboBarang = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         TxtAlamat = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TbBarang = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,6 +179,24 @@ public class FormTransaksi extends javax.swing.JFrame {
             }
         });
 
+        TbBarang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        TbBarang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TbBarangMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(TbBarang);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel8.setText("HARGA BARANG");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,8 +236,16 @@ public class FormTransaksi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(214, 214, 214))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(342, 342, 342))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +272,11 @@ public class FormTransaksi extends javax.swing.JFrame {
                     .addComponent(Delete))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -244,6 +311,10 @@ public class FormTransaksi extends javax.swing.JFrame {
     private void TxtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtNamaActionPerformed
+
+    private void TbBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbBarangMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TbBarangMouseClicked
 
     /**
      * @param args the command line arguments
@@ -293,6 +364,7 @@ public class FormTransaksi extends javax.swing.JFrame {
     private javax.swing.JButton Delete;
     private javax.swing.JButton Save;
     private javax.swing.JTable TBTransaksi;
+    private javax.swing.JTable TbBarang;
     private javax.swing.JTextField TxtAlamat;
     private javax.swing.JTextField TxtNama;
     private javax.swing.JTextField TxtQty;
@@ -301,7 +373,9 @@ public class FormTransaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
