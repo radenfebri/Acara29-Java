@@ -150,17 +150,17 @@ public class FormLoginPenjual extends javax.swing.JFrame {
     private void LoginPenjualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginPenjualActionPerformed
         // TODO add your handling code here:
        try {
-            String email = null;
+            int id = 0;
             sql = "SELECT * FROM tb_penjual WHERE email='" + EmailPenjual.getText() + "' AND password='" + PasswordPenjual.getText() + "'";
             con = (Connection) Koneksi.koneksiDB();
             stat = con.createStatement();
             rs = stat.executeQuery(sql);
             System.out.println(rs);
             if (rs.next()) {
-                email = rs.getString("email");
+                id = rs.getInt("id_penjual");
                 if (EmailPenjual.getText().equals(rs.getString("email")) && PasswordPenjual.getText().equals(rs.getString("password"))) {
                     JOptionPane.showMessageDialog(null, "Berhasil Login");
-                    UserSession.setEmail(email);
+                    UserSession.setID(id);
    
                     new FormMaster().setVisible(true);
                     this.dispose();
@@ -173,12 +173,12 @@ public class FormLoginPenjual extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        }                        
+        }                                
     }//GEN-LAST:event_LoginPenjualActionPerformed
 
     private void Add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add1ActionPerformed
         // TODO add your handling code here:
-         FormRegister fmregister = new FormRegister();
+        FormRegister fmregister = new FormRegister();
         fmregister.show();
         
         dispose();

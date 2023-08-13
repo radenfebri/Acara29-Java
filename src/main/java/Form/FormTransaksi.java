@@ -188,6 +188,11 @@ public class FormTransaksi extends javax.swing.JFrame {
         });
 
         Clear.setText("CLEAR");
+        Clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearActionPerformed(evt);
+            }
+        });
 
         TBTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -308,11 +313,11 @@ public class FormTransaksi extends javax.swing.JFrame {
                     .addComponent(Delete))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -333,6 +338,23 @@ public class FormTransaksi extends javax.swing.JFrame {
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
+        try {
+            // membuat koneksi baru
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            // Membuat query dan langsung mengisinya saat dipanggil
+            String sql = "delete from tb_transaksi where id_barang = " + id_barang;
+            int row = st.executeUpdate(sql);//eksekusi query sql
+            if (row == 1) {
+                // menampilkan UI pop up berhasil
+                JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Transaksi", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            // menampilkan UI pop up gagal
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Transaksi", JOptionPane.ERROR_MESSAGE);
+        }
+        transaction_table();
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void TxtAlamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtAlamatActionPerformed
@@ -383,6 +405,13 @@ public class FormTransaksi extends javax.swing.JFrame {
     private void TbBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbBarangMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_TbBarangMouseClicked
+
+    private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
+        // TODO add your handling code here:
+        TxtNama.setText("");
+        TxtAlamat.setText("");
+        TxtQty.setText("");
+    }//GEN-LAST:event_ClearActionPerformed
 
     /**
      * @param args the command line arguments

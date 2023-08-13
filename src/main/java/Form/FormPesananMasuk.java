@@ -6,6 +6,8 @@ package Form;
 
 import Model.Koneksi;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,10 +16,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Alvin
  */
 public class FormPesananMasuk extends javax.swing.JFrame {
-
-    /**
-     * Creates new form FormAcc
-     */
+    
+    private String id_pesanan;
+    int id = UserSession.getID();
+    
     public FormPesananMasuk() {
         initComponents();
         transaction_table();
@@ -25,6 +27,7 @@ public class FormPesananMasuk extends javax.swing.JFrame {
 
     private void transaction_table() {
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
         model.addColumn("No. Invoice");
         model.addColumn("Nama");
         model.addColumn("Alamat");
@@ -34,7 +37,7 @@ public class FormPesananMasuk extends javax.swing.JFrame {
         model.addColumn("Status");
 
         try {
-            String sql = "SELECT CONCAT('INV/', no_invoice, '/', YEAR(CURDATE())), nama_pembeli, alamat, tb_barang.nama_barang, qty, grand_total, IF(is_confirm=1, 'Diterima', 'On Progress')  "
+            String sql = "SELECT no_invoice, CONCAT('INV/', no_invoice, '/', YEAR(CURDATE())), nama_pembeli, alamat, tb_barang.nama_barang, qty, grand_total, IF(is_confirm=1, 'Diterima', 'On Progress')  "
                     + "from tb_transaksi "
                     + "left Join tb_barang on tb_barang.id_barang = tb_transaksi.id_barang";
             java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
@@ -42,16 +45,17 @@ public class FormPesananMasuk extends javax.swing.JFrame {
             java.sql.ResultSet res = stm.executeQuery(sql);
             while (res.next()) {
                 model.addRow(new Object[]{
-                    res.getString(1), 
+                    res.getInt(1), 
                     res.getString(2), 
                     res.getString(3),
                     res.getString(4),
-                    res.getInt(5),
+                    res.getString(5),
                     res.getInt(6),
-                    res.getString(7),
+                    res.getInt(7),
+                    res.getString(8),
                 });
             }
-            System.out.println("Data: " + res);
+//            System.out.println("Data: " + res);
             TBPesananMasuk.setModel(model);
         } catch (Exception e) {
             System.out.println("Error Found: " + e);
@@ -164,6 +168,23 @@ public class FormPesananMasuk extends javax.swing.JFrame {
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
+        try {
+            // membuat koneksi baru
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            // Membuat query dan langsung mengisinya saat dipanggil
+            String sql = "delete from tb_transaksi where no_invoice = " + id_pesanan;
+            int row = st.executeUpdate(sql);//eksekusi query sql
+            if (row == 1) {
+                // menampilkan UI pop up berhasil
+                JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Pesanan", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            // menampilkan UI pop up gagal
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Pesanan", JOptionPane.ERROR_MESSAGE);
+        }
+        transaction_table();
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -176,6 +197,24 @@ public class FormPesananMasuk extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
+        try {
+            // membuat koneksi baru
+            Koneksi ObjKoneksi = new Koneksi();
+            Connection con = ObjKoneksi.koneksiDB();
+            Statement st = con.createStatement();
+            // Membuat query dan langsung mengisinya saat dipanggil
+            String sql = "update tb_transaksi set is_confirm = 1, id_penjual = "+ id +" where no_invoice = " + id_pesanan;
+            int row = st.executeUpdate(sql);//eksekusi query sql
+            if (row == 1) {
+                // menampilkan UI pop up berhasil
+                JOptionPane.showMessageDialog(null, "Sukses konfirmasi pesanan", "Data Pesanan", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            // menampilkan UI pop up gagal
+            JOptionPane.showMessageDialog(null, e, "Data Pesanan", JOptionPane.ERROR_MESSAGE);
+        }
+        transaction_table();
+        
     }//GEN-LAST:event_SaveActionPerformed
 
     private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
