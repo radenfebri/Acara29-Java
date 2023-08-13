@@ -366,11 +366,13 @@ public class FormPenjual extends javax.swing.JFrame {
             
             if (row == 1) {
                 // menampilkan UI pop up berhasil
-                JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Data sukses dihapus", 
+                        "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
             // menampilkan UI pop up gagal
-            JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Sepatu", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus", 
+                    "Data Sepatu", JOptionPane.ERROR_MESSAGE);
         }
         // menampilkan tabel
         load_table();
@@ -404,7 +406,8 @@ public class FormPenjual extends javax.swing.JFrame {
         // jika pemilihan data berhasil
         if (editTbl == false) {
             // menampilkan UI pop up berhasil
-            JOptionPane.showMessageDialog(null, "Sukses memilih Data Sepatu", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Sukses memilih Data Sepatu", 
+                    "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_TbPenjualMouseClicked
 
@@ -425,11 +428,13 @@ public class FormPenjual extends javax.swing.JFrame {
             int row = st.executeUpdate(sql);
             if (row == 1) {
                 // menampilkan UI pop up berhasil
-                JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sukses merubah data", 
+                        "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
             // menampilkan UI pop up gagal
-            JOptionPane.showMessageDialog(null, e, "Data Sepatu", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, 
+                    "Data Sepatu", JOptionPane.ERROR_MESSAGE);
         }
         // menampilkan tabel pada JTable
         load_table();

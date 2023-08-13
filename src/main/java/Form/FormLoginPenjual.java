@@ -151,14 +151,16 @@ public class FormLoginPenjual extends javax.swing.JFrame {
         // TODO add your handling code here:
        try {
             int id = 0;
-            sql = "SELECT * FROM tb_penjual WHERE email='" + EmailPenjual.getText() + "' AND password='" + PasswordPenjual.getText() + "'";
+            sql = "SELECT * FROM tb_penjual WHERE email='" + EmailPenjual.getText() 
+                    + "' AND password='" + PasswordPenjual.getText() + "'";
             con = (Connection) Koneksi.koneksiDB();
             stat = con.createStatement();
             rs = stat.executeQuery(sql);
             System.out.println(rs);
             if (rs.next()) {
                 id = rs.getInt("id_penjual");
-                if (EmailPenjual.getText().equals(rs.getString("email")) && PasswordPenjual.getText().equals(rs.getString("password"))) {
+                if (EmailPenjual.getText().equals(rs.getString("email")) 
+                        && PasswordPenjual.getText().equals(rs.getString("password"))) {
                     JOptionPane.showMessageDialog(null, "Berhasil Login");
                     UserSession.setID(id);
    

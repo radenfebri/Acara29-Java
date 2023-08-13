@@ -186,7 +186,8 @@ public class FormRegister extends javax.swing.JFrame {
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
             String sql = "insert into tb_pembeli(nama,email,alamat,no_hp, password) "
-                    + "values ('" + Nama.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "', '" + Password.getText() + "')";
+                    + "values ('" + Nama.getText() + "', '" + Email.getText() + "', '" 
+                    + Alamat.getText()+ "', '" + NoHp.getText() + "', '" + Password.getText() + "')";
             int row = st.executeUpdate(sql);
 
             if (row == 1) {
@@ -194,11 +195,13 @@ public class FormRegister extends javax.swing.JFrame {
                 fmloginpenjual.show();
         
                 dispose();
-                JOptionPane.showMessageDialog(null, "Sukses Register", "Regsister Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sukses Register", 
+                        "Regsister Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
 
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e, "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "Data Pembeli", 
+                    JOptionPane.INFORMATION_MESSAGE);
             System.out.println("Gagal register kedalam database \n" + e);
         }
     }//GEN-LAST:event_Add1ActionPerformed

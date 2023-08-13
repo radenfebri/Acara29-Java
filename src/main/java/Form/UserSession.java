@@ -9,8 +9,10 @@ package Form;
  *
  * @author Sendy
  */
+// membuat session ketika user login
 public class UserSession {
 
+    // attribute 
     private static String nama, email, alamat;   
     private static int id;   
 

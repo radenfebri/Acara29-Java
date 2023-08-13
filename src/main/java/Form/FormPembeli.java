@@ -331,11 +331,13 @@ public class FormPembeli extends javax.swing.JFrame {
             int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
                 // menampilkan UI pop up berhasil
-                JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Data sukses dihapus", 
+                        "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
             // menampilkan UI pop up gagal
-            JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Pembeli", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus", 
+                    "Data Pembeli", JOptionPane.ERROR_MESSAGE);
         }
         // menampilkan tabel
         load_table();
@@ -351,17 +353,20 @@ public class FormPembeli extends javax.swing.JFrame {
             Statement st = con.createStatement();
             // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "insert into tb_pembeli(nama,email,alamat,no_hp,password) "
-                    + "values ('" + NamaPembeli.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "','" + Password.getText() + "')";
+                    + "values ('" + NamaPembeli.getText() + "', '" + Email.getText() + "', '" 
+                    + Alamat.getText()+ "', '" + NoHp.getText() + "','" + Password.getText() + "')";
             int row = st.executeUpdate(sql);//eksekusi query sql
 
             if (row == 1) {
                 // menampilkan UI pop up berhasil
-                JOptionPane.showMessageDialog(null, "Sukses menambahkan data pembeli", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sukses menambahkan data pembeli", 
+                        "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
 
             }
         } catch (SQLException e) {
             // menampilkan UI pop up eror
-            JOptionPane.showMessageDialog(null, e, "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, 
+                    "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
             // menampilkan eror pada console
             System.out.println("gagal menambah kedalam database \n" + e);
         }
@@ -379,15 +384,19 @@ public class FormPembeli extends javax.swing.JFrame {
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
             // Membuat query dan langsung mengisinya saat dipanggil
-            String sql = "update tb_pembeli set nama='"+ NamaPembeli.getText() + "',password='"+ Password.getText() + "', email ='" + Email.getText() + "',"+ "alamat ='" + Alamat.getText() + "',no_hp = " + NoHp.getText() +  " where id_pembeli = " + id_pembeli;
+            String sql = "update tb_pembeli set nama='"+ NamaPembeli.getText() 
+                    + "',password='"+ Password.getText() + "', email ='" + Email.getText() + "',"+ "alamat ='" 
+                    + Alamat.getText() + "',no_hp = " + NoHp.getText() +  " where id_pembeli = " + id_pembeli;
             int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
                 // menampilkan UI pop up berhasil
-                JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sukses merubah data", 
+                        "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
             // menampilkan UI pop up eror
-            JOptionPane.showMessageDialog(null, e, "Data Pembeli", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "Data Pembeli", 
+                    JOptionPane.ERROR_MESSAGE);
         }
         //  menampilkan table
         load_table();
