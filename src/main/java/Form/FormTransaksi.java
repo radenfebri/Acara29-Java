@@ -8,6 +8,7 @@ import Model.Koneksi;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -231,6 +232,7 @@ public class FormTransaksi extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
+        System.out.println(Arrays.toString(ComboBarang.getSelectedObjects()));
     }//GEN-LAST:event_SaveActionPerformed
 
     /**
