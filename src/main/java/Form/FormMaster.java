@@ -4,6 +4,8 @@
  */
 package Form;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author febri
@@ -16,6 +18,18 @@ public class FormMaster extends javax.swing.JFrame {
     public FormMaster() {
         initComponents();
     }
+    
+    public void logout() {
+    // Hapus informasi sesi pengguna
+    UserSession.clearSession();
+
+    // Tampilkan pesan atau lakukan tindakan lain
+    JOptionPane.showMessageDialog(null, "Berhasil Logout");
+
+    // Buka kembali halaman login atau form login
+    new FormLoginPenjual().setVisible(true);
+    this.dispose();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -194,6 +208,7 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         // TODO add your handling code here:
+        logout();
     }//GEN-LAST:event_LogoutActionPerformed
 
     /**

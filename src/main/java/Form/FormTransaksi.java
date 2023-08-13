@@ -27,6 +27,19 @@ public class FormTransaksi extends javax.swing.JFrame {
     String alamat = UserSession.getAlamat();
     int id = UserSession.getID();
     
+    
+    public void logout() {
+    // Hapus informasi sesi pengguna
+    UserSession.clearSession();
+
+    // Tampilkan pesan atau lakukan tindakan lain
+    JOptionPane.showMessageDialog(null, "Berhasil Logout");
+
+    // Buka kembali halaman login atau form login
+    new FormLoginPembeli().setVisible(true);
+    this.dispose();
+}
+    
     public FormTransaksi() {
         initComponents();
         load_table();
@@ -241,6 +254,11 @@ public class FormTransaksi extends javax.swing.JFrame {
         jLabel8.setText("HARGA BARANG");
 
         Logout.setText("Keluar");
+        Logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -422,6 +440,11 @@ public class FormTransaksi extends javax.swing.JFrame {
         TxtAlamat.setText("");
         TxtQty.setText("");
     }//GEN-LAST:event_ClearActionPerformed
+
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
+        // TODO add your handling code here:
+        logout();
+    }//GEN-LAST:event_LogoutActionPerformed
 
     /**
      * @param args the command line arguments

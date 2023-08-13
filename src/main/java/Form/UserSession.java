@@ -45,4 +45,11 @@ public class UserSession {
     public static void setEmail(String email) {
         UserSession.email = email;
     }
+    
+    public static void clearSession() {
+    id = 0;
+    nama = null;
+    alamat = null;
+    // Hapus informasi sesi lainnya yang mungkin Anda simpan
+}
 }

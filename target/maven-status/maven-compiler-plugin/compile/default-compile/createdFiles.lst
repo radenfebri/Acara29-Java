@@ -20,6 +20,7 @@ Form\FormSupplier$6.class
 Form\FormPembeli$10.class
 TugasAcara29$1.class
 Form\FormPesananMasuk.class
+Form\FormTransaksi$9.class
 Form\FormUtama$2.class
 Form\FormBarang$6.class
 Form\FormSupplier$3.class
@@ -47,6 +48,7 @@ Form\FormStok.class
 Form\FormPenjual$4.class
 Form\FormPembeli.class
 Form\FormRegister$2.class
+Form\FormMaster$7.class
 Form\FormStok$9.class
 Form\FormBarang$4.class
 Form\FormPembeli$5.class
