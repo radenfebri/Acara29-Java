@@ -21,6 +21,7 @@ public class FormPesananMasuk extends javax.swing.JFrame {
      * Creates new form FormAcc
      */
     private String id_pesanan;
+    int id = UserSession.getID();
     
     public FormPesananMasuk() {
         initComponents();
@@ -210,7 +211,7 @@ public class FormPesananMasuk extends javax.swing.JFrame {
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
             // Membuat query dan langsung mengisinya saat dipanggil
-            String sql = "update tb_transaksi set is_confirm = 1 where no_invoice = " + id_pesanan;
+            String sql = "update tb_transaksi set is_confirm = 1, id_penjual = "+ id +" where no_invoice = " + id_pesanan;
             int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
                 // menampilkan UI pop up berhasil
