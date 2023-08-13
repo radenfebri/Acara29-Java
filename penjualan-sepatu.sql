@@ -1,221 +1,118 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Aug 13, 2023 at 09:04 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `penjualan-sepatu`
---
-
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versi server:                 5.7.33 - MySQL Community Server (GPL)
+-- OS Server:                    Win64
+-- HeidiSQL Versi:               11.2.0.6213
 -- --------------------------------------------------------
 
---
--- Table structure for table `tb_barang`
---
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE TABLE `tb_barang` (
-  `id_barang` int(25) NOT NULL,
+-- membuang struktur untuk table penjualan-sepatu.tb_barang
+CREATE TABLE IF NOT EXISTS `tb_barang` (
+  `id_barang` int(25) NOT NULL AUTO_INCREMENT,
   `nama_barang` varchar(255) NOT NULL,
   `merk_barang` varchar(255) NOT NULL,
   `harga_barang` int(25) NOT NULL,
-  `stok_barang` int(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `stok_barang` int(25) NOT NULL,
+  PRIMARY KEY (`id_barang`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tb_barang`
---
-
+-- Membuang data untuk tabel penjualan-sepatu.tb_barang: ~4 rows (lebih kurang)
+/*!40000 ALTER TABLE `tb_barang` DISABLE KEYS */;
 INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `merk_barang`, `harga_barang`, `stok_barang`) VALUES
-(2, 'sepatu', 'nike', 25000, 13),
-(3, 'sepatu', 'nike', 43, 25000),
-(4, 'sepatu', 'nike', 898989, 1),
-(5, 'fefe', 'adidas', 10000, 2);
+	(2, 'Tas', 'nike', 25000, 13),
+	(3, 'Kain', 'nike', 43, 25000),
+	(4, 'Sepatu', 'nike', 898989, 1),
+	(5, 'Febri', 'adidas', 10000, 2);
+/*!40000 ALTER TABLE `tb_barang` ENABLE KEYS */;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_pembeli`
---
-
-CREATE TABLE `tb_pembeli` (
-  `id_pembeli` int(25) NOT NULL,
+-- membuang struktur untuk table penjualan-sepatu.tb_pembeli
+CREATE TABLE IF NOT EXISTS `tb_pembeli` (
+  `id_pembeli` int(25) NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `no_hp` varchar(25) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_pembeli`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tb_pembeli`
---
-
+-- Membuang data untuk tabel penjualan-sepatu.tb_pembeli: ~1 rows (lebih kurang)
+/*!40000 ALTER TABLE `tb_pembeli` DISABLE KEYS */;
 INSERT INTO `tb_pembeli` (`id_pembeli`, `nama`, `email`, `alamat`, `no_hp`, `password`) VALUES
-(1, 'Supri', 'supri@gmail.com', 'jalanjalan', '4545', '123'),
-(2, 'budi', 'budi@gmail.com', 'mdoko', '8484', '123');
+	(8, 'Raden Febri', 'febriye12@gmail.com', 'Banyuwangi', '02873242342', 'Febri2303');
+/*!40000 ALTER TABLE `tb_pembeli` ENABLE KEYS */;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_penjual`
---
-
-CREATE TABLE `tb_penjual` (
-  `id_penjual` int(25) NOT NULL,
+-- membuang struktur untuk table penjualan-sepatu.tb_penjual
+CREATE TABLE IF NOT EXISTS `tb_penjual` (
+  `id_penjual` int(25) NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `no_hp` varchar(25) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_penjual`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tb_penjual`
---
-
+-- Membuang data untuk tabel penjualan-sepatu.tb_penjual: ~1 rows (lebih kurang)
+/*!40000 ALTER TABLE `tb_penjual` DISABLE KEYS */;
 INSERT INTO `tb_penjual` (`id_penjual`, `nama`, `email`, `alamat`, `no_hp`, `password`) VALUES
-(1, 'penjual', 'penjual@mail.com', 'lorem', '076878867', '12345');
+	(3, 'Admin', 'admin@gmail.com', 'Banyuwangi', '098713123', 'Febri2303');
+/*!40000 ALTER TABLE `tb_penjual` ENABLE KEYS */;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_stok`
---
-
-CREATE TABLE `tb_stok` (
-  `no_invoice` int(25) NOT NULL,
+-- membuang struktur untuk table penjualan-sepatu.tb_stok
+CREATE TABLE IF NOT EXISTS `tb_stok` (
+  `no_invoice` int(25) NOT NULL AUTO_INCREMENT,
   `id_penjual` int(25) NOT NULL,
   `id_supplier` int(25) NOT NULL,
   `qty` int(25) NOT NULL,
   `nama_barang` varchar(255) NOT NULL,
-  `grand_total` varchar(255) NOT NULL
+  `grand_total` varchar(255) NOT NULL,
+  PRIMARY KEY (`no_invoice`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
+-- Membuang data untuk tabel penjualan-sepatu.tb_stok: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `tb_stok` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_stok` ENABLE KEYS */;
 
---
--- Table structure for table `tb_supplier`
---
-
-CREATE TABLE `tb_supplier` (
-  `id_supplier` int(25) NOT NULL,
+-- membuang struktur untuk table penjualan-sepatu.tb_supplier
+CREATE TABLE IF NOT EXISTS `tb_supplier` (
+  `id_supplier` int(25) NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
-  `no_hp` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `no_hp` varchar(25) NOT NULL,
+  PRIMARY KEY (`id_supplier`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
+-- Membuang data untuk tabel penjualan-sepatu.tb_supplier: ~1 rows (lebih kurang)
+/*!40000 ALTER TABLE `tb_supplier` DISABLE KEYS */;
+INSERT INTO `tb_supplier` (`id_supplier`, `nama`, `email`, `alamat`, `no_hp`) VALUES
+	(1, 'Radenfebri', 'febriye12@gmail.com', 'Banyuwangi', '082147639955');
+/*!40000 ALTER TABLE `tb_supplier` ENABLE KEYS */;
 
---
--- Table structure for table `tb_transaksi`
---
-
-CREATE TABLE `tb_transaksi` (
-  `no_invoice` int(25) NOT NULL,
+-- membuang struktur untuk table penjualan-sepatu.tb_transaksi
+CREATE TABLE IF NOT EXISTS `tb_transaksi` (
+  `no_invoice` int(25) NOT NULL AUTO_INCREMENT,
   `id_pembeli` int(25) NOT NULL,
-  `nama_pembeli` varchar(255) NOT NULL,
   `id_barang` int(25) NOT NULL,
   `id_penjual` int(25) NOT NULL,
   `qty` int(25) NOT NULL,
-  `grand_total` int(25) NOT NULL
+  `grand_total` int(25) NOT NULL,
+  `is_confirm` int(25) NOT NULL,
+  PRIMARY KEY (`no_invoice`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Indexes for dumped tables
---
+-- Membuang data untuk tabel penjualan-sepatu.tb_transaksi: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `tb_transaksi` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_transaksi` ENABLE KEYS */;
 
---
--- Indexes for table `tb_barang`
---
-ALTER TABLE `tb_barang`
-  ADD PRIMARY KEY (`id_barang`);
-
---
--- Indexes for table `tb_pembeli`
---
-ALTER TABLE `tb_pembeli`
-  ADD PRIMARY KEY (`id_pembeli`);
-
---
--- Indexes for table `tb_penjual`
---
-ALTER TABLE `tb_penjual`
-  ADD PRIMARY KEY (`id_penjual`);
-
---
--- Indexes for table `tb_stok`
---
-ALTER TABLE `tb_stok`
-  ADD PRIMARY KEY (`no_invoice`);
-
---
--- Indexes for table `tb_supplier`
---
-ALTER TABLE `tb_supplier`
-  ADD PRIMARY KEY (`id_supplier`);
-
---
--- Indexes for table `tb_transaksi`
---
-ALTER TABLE `tb_transaksi`
-  ADD PRIMARY KEY (`no_invoice`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `tb_barang`
---
-ALTER TABLE `tb_barang`
-  MODIFY `id_barang` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `tb_pembeli`
---
-ALTER TABLE `tb_pembeli`
-  MODIFY `id_pembeli` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tb_penjual`
---
-ALTER TABLE `tb_penjual`
-  MODIFY `id_penjual` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tb_stok`
---
-ALTER TABLE `tb_stok`
-  MODIFY `no_invoice` int(25) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_supplier`
---
-ALTER TABLE `tb_supplier`
-  MODIFY `id_supplier` int(25) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_transaksi`
---
-ALTER TABLE `tb_transaksi`
-  MODIFY `no_invoice` int(25) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
