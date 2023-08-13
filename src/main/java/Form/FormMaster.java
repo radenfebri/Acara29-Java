@@ -166,8 +166,8 @@ public class FormMaster extends javax.swing.JFrame {
 
     private void DataPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPembelianActionPerformed
         // TODO add your handling code here:
-        FormTransaksi fmtransaksi = new FormTransaksi();
-        fmtransaksi.show();
+        FormPesananMasuk fmpesanan = new FormPesananMasuk();
+        fmpesanan.show();
         
         dispose();
     }//GEN-LAST:event_DataPembelianActionPerformed
