@@ -4,6 +4,11 @@
  */
 package Form;
 
+import Model.Koneksi;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Alvin
@@ -15,8 +20,43 @@ public class FormPesananMasuk extends javax.swing.JFrame {
      */
     public FormPesananMasuk() {
         initComponents();
+        transaction_table();
     }
 
+    private void transaction_table() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No. Invoice");
+        model.addColumn("Nama");
+        model.addColumn("Alamat");
+        model.addColumn("Barang");
+        model.addColumn("Qty");
+        model.addColumn("Grand Total");
+        model.addColumn("Status");
+
+        try {
+            String sql = "SELECT CONCAT('INV/', no_invoice, '/', YEAR(CURDATE())), nama_pembeli, alamat, tb_barang.nama_barang, qty, grand_total, IF(is_confirm=1, 'Diterima', 'On Progress')  "
+                    + "from tb_transaksi "
+                    + "left Join tb_barang on tb_barang.id_barang = tb_transaksi.id_barang";
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                model.addRow(new Object[]{
+                    res.getString(1), 
+                    res.getString(2), 
+                    res.getString(3),
+                    res.getString(4),
+                    res.getInt(5),
+                    res.getInt(6),
+                    res.getString(7),
+                });
+            }
+            System.out.println("Data: " + res);
+            TBPesananMasuk.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error Found: " + e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,9 +69,10 @@ public class FormPesananMasuk extends javax.swing.JFrame {
         Delete = new javax.swing.JButton();
         Save = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        TBPembelian = new javax.swing.JTable();
+        TBPesananMasuk = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        BtnPrint = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,18 +90,18 @@ public class FormPesananMasuk extends javax.swing.JFrame {
             }
         });
 
-        TBPembelian.setModel(new javax.swing.table.DefaultTableModel(
+        TBPesananMasuk.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "No Invoice", "Nama Penjual", "Nama Pembeli", "Nama Barang", "Total  Bayar"
+
             }
         ));
-        jScrollPane3.setViewportView(TBPembelian);
+        jScrollPane3.setViewportView(TBPesananMasuk);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("PESANAN MASUK");
@@ -69,6 +110,13 @@ public class FormPesananMasuk extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        BtnPrint.setText("PRINT");
+        BtnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPrintActionPerformed(evt);
             }
         });
 
@@ -84,12 +132,14 @@ public class FormPesananMasuk extends javax.swing.JFrame {
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Save)
                                 .addGap(18, 18, 18)
-                                .addComponent(Delete))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(Delete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BtnPrint)))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -103,7 +153,8 @@ public class FormPesananMasuk extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Save)
-                    .addComponent(Delete))
+                    .addComponent(Delete)
+                    .addComponent(BtnPrint))
                 .addContainerGap(182, Short.MAX_VALUE))
         );
 
@@ -126,6 +177,20 @@ public class FormPesananMasuk extends javax.swing.JFrame {
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SaveActionPerformed
+
+    private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
+        // TODO add your handling code here:
+        try {
+            boolean print = TBPesananMasuk.print();
+            if (print) {
+                JOptionPane.showMessageDialog(null, "Sukses Print Laporan");
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal Print Laporan");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_BtnPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,9 +229,10 @@ public class FormPesananMasuk extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnPrint;
     private javax.swing.JButton Delete;
     private javax.swing.JButton Save;
-    private javax.swing.JTable TBPembelian;
+    private javax.swing.JTable TBPesananMasuk;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane3;
