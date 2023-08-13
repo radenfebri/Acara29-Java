@@ -16,7 +16,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Alvin
  */
 public class FormPesananMasuk extends javax.swing.JFrame {
-    
+
+    /**
+     * Creates new form FormAcc
+     */
     private String id_pesanan;
     int id = UserSession.getID();
     
@@ -105,6 +108,11 @@ public class FormPesananMasuk extends javax.swing.JFrame {
 
             }
         ));
+        TBPesananMasuk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBPesananMasukMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(TBPesananMasuk);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -230,6 +238,19 @@ public class FormPesananMasuk extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BtnPrintActionPerformed
+
+    private void TBPesananMasukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBPesananMasukMouseClicked
+        // TODO add your handling code here:
+        id_pesanan = TBPesananMasuk.getValueAt(TBPesananMasuk.getSelectedRow(), 0).toString();
+        
+        // melihat status pengeditan pada JTable
+        boolean editTbl = TBPesananMasuk.isEditing();
+        // jika pemilihan data berhasil
+        if (editTbl == false) {
+            // menampilkan UI pop up berhasil
+            JOptionPane.showMessageDialog(null, "Sukses memilih Data Pesanan", "Data Pesanan", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_TBPesananMasukMouseClicked
 
     /**
      * @param args the command line arguments
