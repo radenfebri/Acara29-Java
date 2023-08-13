@@ -18,7 +18,7 @@ public class FormPembeli extends javax.swing.JFrame {
     /**
      * Creates new form FormPembeli
      */
-    //    attribute untuk menyimpan id/PK saat mengedit dan menghapus
+    // attribute untuk menyimpan id/PK saat mengedit dan menghapus
     private String id_pembeli;
     
 //    menampilkan form awal saat kode dieksekusi
@@ -29,9 +29,9 @@ public class FormPembeli extends javax.swing.JFrame {
     
     // memunculkan tabel ke dalam interface JTable
     private void load_table() {
-//        membuat object baru     
+        // membuat object baru     
         DefaultTableModel model = new DefaultTableModel();
-//        membuat column untuk field tabel
+        //  membuat column untuk field tabel
         model.addColumn("No. Pembeli");
         model.addColumn("Nama Pembeli");
         model.addColumn("Email");
@@ -39,13 +39,13 @@ public class FormPembeli extends javax.swing.JFrame {
         model.addColumn("No Hp");
         model.addColumn("Password");
 
-//        mengambil data dari database
+        //  mengambil data dari database
         try {
             String sql = "SELECT * from tb_pembeli";// variable berisi query SQL
             java.sql.Connection conn = (Connection) Koneksi.koneksiDB(); // membuat koneksi baru ke database
             java.sql.Statement stm = conn.createStatement(); // membuat SQL server statement untuk dikirm ke database
             java.sql.ResultSet res = stm.executeQuery(sql); // mengeksekusi statement SQL
-//            membuat looping untuk menampilkan semua baris data
+            //  membuat looping untuk menampilkan semua baris data
             while (res.next()) {
                 model.addRow(new Object[]{
                     res.getInt(1), 
@@ -56,12 +56,12 @@ public class FormPembeli extends javax.swing.JFrame {
                     res.getString(6)
                 });
             }
-//            menampilkan data di console untuk debuging
+            //  menampilkan data di console untuk debuging
             System.out.println("Data: " + res);
-//            mengisi Jtabel
+            //  mengisi Jtabel
             TbPembeli.setModel(model);
         } catch (Exception e) {
-//            menampilkan eror di console
+            //  menampilkan eror di console
             System.out.println("Error Found: " + e);
         }
     }
@@ -328,7 +328,7 @@ public class FormPembeli extends javax.swing.JFrame {
             Statement st = con.createStatement();
             // inisiasi sql statement
             String sql = "delete from tb_pembeli where id_pembeli = " + id_pembeli;
-            int row = st.executeUpdate(sql);
+            int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
                 // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
@@ -352,7 +352,7 @@ public class FormPembeli extends javax.swing.JFrame {
             // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "insert into tb_pembeli(nama,email,alamat,no_hp,password) "
                     + "values ('" + NamaPembeli.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "','" + Password.getText() + "')";
-            int row = st.executeUpdate(sql);
+            int row = st.executeUpdate(sql);//eksekusi query sql
 
             if (row == 1) {
                 // menampilkan UI pop up berhasil
@@ -370,6 +370,7 @@ public class FormPembeli extends javax.swing.JFrame {
                         
     }//GEN-LAST:event_AddActionPerformed
 
+    // mengupdate data
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
         try {
@@ -377,7 +378,6 @@ public class FormPembeli extends javax.swing.JFrame {
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
-
             // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "update tb_pembeli set nama='"+ NamaPembeli.getText() + "',password='"+ Password.getText() + "', email ='" + Email.getText() + "',"+ "alamat ='" + Alamat.getText() + "',no_hp = " + NoHp.getText() +  " where id_pembeli = " + id_pembeli;
             int row = st.executeUpdate(sql);//eksekusi query sql
@@ -393,6 +393,7 @@ public class FormPembeli extends javax.swing.JFrame {
         load_table();
     }//GEN-LAST:event_UpdateActionPerformed
 
+    // mengosongkan semua JTextField
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
         // TODO add your handling code here:
         // mengatur semua jenis JTextField menjadi null
@@ -403,6 +404,7 @@ public class FormPembeli extends javax.swing.JFrame {
         Password.setText("");
     }//GEN-LAST:event_ClearActionPerformed
 
+    // memilih data
     private void TbPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbPembeliMouseClicked
         // TODO add your handling code here:
         // mengisi JTextField dengan data yang telah dipilih pada di Jtable
@@ -413,11 +415,11 @@ public class FormPembeli extends javax.swing.JFrame {
         NoHp.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 4).toString());
         Password.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 5).toString());
         
-        // meelihat status pengeditan pada JTable
+        // melihat status pengeditan pada JTable
         boolean editTbl = TbPembeli.isEditing();
-        // jika pemilihan data gagal
+        // jika pemilihan data berhasil
         if (editTbl == false) {
-            // menampilkan UI pop up eror
+            // menampilkan UI pop up berhasil
             JOptionPane.showMessageDialog(null, "Sukses memilih Data Pembeli", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_TbPembeliMouseClicked

@@ -17,19 +17,23 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FormSupplier extends javax.swing.JFrame {
     
+    // attribute untuk menyimpan id/PK saat mengedit dan menghapus
     private String id_supplier;
 
     /**
      * Creates new form FormSupplier
      */
+    //  menampilkan form awal saat kode dieksekusi
     public FormSupplier() {
         initComponents();
         load_table();
     }
     
-    
+    // memunculkan tabel ke dalam interface JTable
     private void load_table() {
+        // membuat object baru     
         DefaultTableModel model = new DefaultTableModel();
+        //  membuat column untuk field tabel
         model.addColumn("No. Supplier");
         model.addColumn("Nama");        
         model.addColumn("Email");
@@ -37,10 +41,11 @@ public class FormSupplier extends javax.swing.JFrame {
         model.addColumn("No HP");
 
         try {
-            String sql = "SELECT * from tb_supplier";
-            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet res = stm.executeQuery(sql);
+            String sql = "SELECT * from tb_supplier";// variable berisi query SQL
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB(); // membuat koneksi baru ke database
+            java.sql.Statement stm = conn.createStatement(); // membuat SQL server statement untuk dikirm ke database
+            java.sql.ResultSet res = stm.executeQuery(sql); // mengeksekusi statement SQL
+            //  membuat looping untuk menampilkan semua baris data
             while (res.next()) {
                 model.addRow(new Object[]{
                     res.getInt(1), 
@@ -50,9 +55,12 @@ public class FormSupplier extends javax.swing.JFrame {
                     res.getString(5),
                 });
             }
+            //  menampilkan data di console untuk debuging
             System.out.println("Data: " + res);
+            //  mengisi Jtabel
             TbSupplier.setModel(model);
         } catch (Exception e) {
+            // menampilkan eror di console
             System.out.println("Error Found: " + e);
         }
     }
@@ -260,39 +268,49 @@ public class FormSupplier extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NoHpActionPerformed
 
+    // mengupdate data
     private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
         // TODO add your handling code here:
         try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
-
+             // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "update tb_supplier set nama='"+ NamaSupplier.getText() + "', email ='" + Email.getText() + "',"+ "alamat ='" + Alamat.getText() + "',no_hp = " + NoHp.getText() + " where id_supplier = " + id_supplier;
-
-            int row = st.executeUpdate(sql);
+            int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Supplier", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up gagal
             JOptionPane.showMessageDialog(null, e, "Data Supplier", JOptionPane.ERROR_MESSAGE);
         }
+        //  menampilkan table
         load_table();
     }//GEN-LAST:event_EditActionPerformed
 
+    // menghapus data yang dipilih
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
         try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
+            // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "delete from tb_supplier where id_supplier = " + id_supplier;
-            int row = st.executeUpdate(sql);
+            int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Supplier", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up gagal
             JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Supplier", JOptionPane.ERROR_MESSAGE);
         }
+        //  menampilkan table
         load_table();
     }//GEN-LAST:event_DeleteActionPerformed
 
@@ -302,49 +320,64 @@ public class FormSupplier extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        // membuat objek
         FormMaster fmkembali = new FormMaster();
+        // menampilkan menu utama
         fmkembali.show();
-
+        // membersihkan data yang disimpan didalam object global
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // menambahkan data
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
-                try {
+        try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
+            // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "insert into tb_supplier(nama,email,alamat,no_hp) "
                     + "values ('" + NamaSupplier.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "')";
-            int row = st.executeUpdate(sql);
-
+            int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Sukses menambahkan supplier", "Data Supplier", JOptionPane.INFORMATION_MESSAGE);
 
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up gagal
             JOptionPane.showMessageDialog(null, e, "Data Supplier", JOptionPane.INFORMATION_MESSAGE);
+            // menampilkan eror di console
             System.out.println("gagal menambah kedalam database \n" + e);
         }
+        //  menampilkan table
         load_table();
     }//GEN-LAST:event_SaveActionPerformed
 
+    // memilih data
     private void TbSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbSupplierMouseClicked
         // TODO add your handling code here:
+        // mengisi JTextField dengan data yang telah dipilih pada di Jtable
         id_supplier = TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 0).toString();
         NamaSupplier.setText(TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 1).toString());
         Email.setText(TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 2).toString());
         Alamat.setText(TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 3).toString());
         NoHp.setText(TbSupplier.getValueAt(TbSupplier.getSelectedRow(), 4).toString());
         
+        // melihat status pengeditan pada JTable
         boolean editTbl = TbSupplier.isEditing();
+        // jika pemilihan data berhasil
         if (editTbl == false) {
+            // menampilkan UI pop up berhasil
             JOptionPane.showMessageDialog(null, "Sukses memilih Data Supplier", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_TbSupplierMouseClicked
 
+    // mengosongkan semua JTextField
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
         // TODO add your handling code here:
+        // mengatur semua jenis JTextField menjadi null
         NamaSupplier.setText("");
         Email.setText("");
         Alamat.setText("");

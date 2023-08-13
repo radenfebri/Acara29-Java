@@ -362,7 +362,7 @@ public class FormPenjual extends javax.swing.JFrame {
             Statement st = con.createStatement();   
             // inisiasi sql statement
             String sql = "delete from tb_penjual where id_penjual = " + id_penjual;
-            int row = st.executeUpdate(sql);
+            int row = st.executeUpdate(sql);//eksekusi query sql
             
             if (row == 1) {
                 // menampilkan UI pop up berhasil
@@ -401,7 +401,7 @@ public class FormPenjual extends javax.swing.JFrame {
         Password.setText(TbPenjual.getValueAt(TbPenjual.getSelectedRow(), 5).toString());
         // melihat status pengeditan pada JTable
         boolean editTbl = TbPenjual.isEditing();
-        // jika pemilihan data gagal
+        // jika pemilihan data berhasil
         if (editTbl == false) {
             // menampilkan UI pop up berhasil
             JOptionPane.showMessageDialog(null, "Sukses memilih Data Sepatu", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
@@ -421,7 +421,6 @@ public class FormPenjual extends javax.swing.JFrame {
                     "',password ='" + Password.getText() +
                     "', email ='" + Email.getText() + "',"+ "alamat ='" + AlamatPenjual.getText() + 
                     "',no_hp = " + NoHp.getText() +  " where id_penjual = " + id_penjual;
-
             // eksekusi SQL
             int row = st.executeUpdate(sql);
             if (row == 1) {

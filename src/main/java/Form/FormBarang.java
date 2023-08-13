@@ -20,15 +20,20 @@ public class FormBarang extends javax.swing.JFrame {
     /**
      * Creates new form FormBarang
      */
+    // attribute untuk menyimpan id/PK saat mengedit dan menghapus
     private String id_barang;
     
+    // memunculkan tabel ke dalam interface JTable
     public FormBarang() {
         initComponents();
         load_table();
     }
 
+        // memunculkan tabel ke dalam interface JTable
     private void load_table() {
+        // membuat object baru     
         DefaultTableModel model = new DefaultTableModel();
+        //  membuat column untuk field tabel
         model.addColumn("No. Barang");
         model.addColumn("Nama Barang");
         model.addColumn("Merk Barang");
@@ -36,10 +41,11 @@ public class FormBarang extends javax.swing.JFrame {
         model.addColumn("Stok");
 
         try {
-            String sql = "SELECT * from tb_barang";
-            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet res = stm.executeQuery(sql);
+            String sql = "SELECT * from tb_barang";// variable berisi query SQL
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB(); // membuat koneksi baru ke database
+            java.sql.Statement stm = conn.createStatement(); // membuat SQL server statement untuk dikirm ke database
+            java.sql.ResultSet res = stm.executeQuery(sql); // mengeksekusi statement SQL
+            //  membuat looping untuk menampilkan semua baris data
             while (res.next()) {
                 model.addRow(new Object[]{
                     res.getInt(1), 
@@ -49,7 +55,9 @@ public class FormBarang extends javax.swing.JFrame {
                     res.getInt(5),
                 });
             }
+            //  menampilkan data di console untuk debuging
             System.out.println("Data: " + res);
+            //  mengisi Jtabel
             TbBarang.setModel(model);
         } catch (Exception e) {
             System.out.println("Error Found: " + e);
@@ -269,82 +277,100 @@ public class FormBarang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_StokBarangActionPerformed
 
+    // menambahkan data
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
-//            String sql = "insert into tb_barang(nama_barang,merk_barang,harga_barang,stok_barang) "
-//                    + "values ('" + NamaBarang.getText() + "', '" + MerkBarang.getText() + "', '" + HargaBarang.getText()+ "', '" + StokBarang.getText() + "')";
-//            System.out.println(sql);
         try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
+            // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "insert into tb_barang(nama_barang,merk_barang,harga_barang,stok_barang) "
                     + "values ('" + NamaBarang.getText() + "', '" + MerkBarang.getText() + "', '" + HargaBarang.getText()+ "', '" + StokBarang.getText() + "')";
-            int row = st.executeUpdate(sql);
+            int row = st.executeUpdate(sql);//eksekusi query sql
 
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Sukses menambahkan barang", "Data Barang", JOptionPane.INFORMATION_MESSAGE);
 
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up gagal
             JOptionPane.showMessageDialog(null, e, "Data Barang", JOptionPane.INFORMATION_MESSAGE);
+            // menampilkan eror pada console
             System.out.println("gagal menambah kedalam database \n" + e);
         }
         load_table();
     }//GEN-LAST:event_AddActionPerformed
 
+    // menghapus data yang dipilih
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
         try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
+            // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "delete from tb_barang where id_barang = " + id_barang;
-            int row = st.executeUpdate(sql);
+            int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up gagal
             JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Sepatu", JOptionPane.ERROR_MESSAGE);
         }
         load_table();
     }//GEN-LAST:event_DeleteActionPerformed
 
+    // memilih data
     private void TbBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbBarangMouseClicked
         // TODO add your handling code here:
+        // mengisi JTextField dengan data yang telah dipilih pada di Jtable
         id_barang = TbBarang.getValueAt(TbBarang.getSelectedRow(), 0).toString();
         NamaBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 1).toString());
         MerkBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 2).toString());
         HargaBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 3).toString());
         StokBarang.setText(TbBarang.getValueAt(TbBarang.getSelectedRow(), 4).toString());
         
+        // melihat status pengeditan pada JTable
         boolean editTbl = TbBarang.isEditing();
+        // jika pemilihan data berhasil
         if (editTbl == false) {
+            // menampilkan UI pop up berhasil
             JOptionPane.showMessageDialog(null, "Sukses memilih Data Sepatu", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_TbBarangMouseClicked
 
+    // mengupdate data
     private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
         // TODO add your handling code here:
         try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
-
+            // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "update tb_barang set stok_barang='"+ StokBarang.getText() + "', nama_barang ='" + NamaBarang.getText() + "',"+ "merk_barang ='" + MerkBarang.getText() + "',harga_barang = " + HargaBarang.getText() + " where id_barang = " + id_barang;
-
-            int row = st.executeUpdate(sql);
+            int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up gagal
             JOptionPane.showMessageDialog(null, e, "Data Sepatu", JOptionPane.ERROR_MESSAGE);
         }
         load_table();
     }//GEN-LAST:event_EditActionPerformed
 
+    // mengosongkan semua JTextField
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
         // TODO add your handling code here:
+        // mengatur semua jenis JTextField menjadi null
         NamaBarang.setText("");
         MerkBarang.setText("");
         HargaBarang.setText("");
@@ -353,9 +379,11 @@ public class FormBarang extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        // membuat objek
         FormMaster fmkembali = new FormMaster();
+        // menampilkan menu utama
         fmkembali.show();
-        
+        // membersihkan data yang disimpan didalam object global
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
