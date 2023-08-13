@@ -18,13 +18,20 @@ public class FormPembeli extends javax.swing.JFrame {
     /**
      * Creates new form FormPembeli
      */
+    //    attribute untuk menyimpan id/PK saat mengedit dan menghapus
     private String id_pembeli;
+    
+//    menampilkan form awal saat kode dieksekusi
     public FormPembeli() {
         initComponents();
         load_table();
     }
- private void load_table() {
+    
+    // memunculkan tabel ke dalam interface JTable
+    private void load_table() {
+//        membuat object baru     
         DefaultTableModel model = new DefaultTableModel();
+//        membuat column untuk field tabel
         model.addColumn("No. Pembeli");
         model.addColumn("Nama Pembeli");
         model.addColumn("Email");
@@ -32,11 +39,13 @@ public class FormPembeli extends javax.swing.JFrame {
         model.addColumn("No Hp");
         model.addColumn("Password");
 
+//        mengambil data dari database
         try {
-            String sql = "SELECT * from tb_pembeli";
-            java.sql.Connection conn = (Connection) Koneksi.koneksiDB();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet res = stm.executeQuery(sql);
+            String sql = "SELECT * from tb_pembeli";// variable berisi query SQL
+            java.sql.Connection conn = (Connection) Koneksi.koneksiDB(); // membuat koneksi baru ke database
+            java.sql.Statement stm = conn.createStatement(); // membuat SQL server statement untuk dikirm ke database
+            java.sql.ResultSet res = stm.executeQuery(sql); // mengeksekusi statement SQL
+//            membuat looping untuk menampilkan semua baris data
             while (res.next()) {
                 model.addRow(new Object[]{
                     res.getInt(1), 
@@ -47,9 +56,12 @@ public class FormPembeli extends javax.swing.JFrame {
                     res.getString(6)
                 });
             }
+//            menampilkan data di console untuk debuging
             System.out.println("Data: " + res);
+//            mengisi Jtabel
             TbPembeli.setModel(model);
         } catch (Exception e) {
+//            menampilkan eror di console
             System.out.println("Error Found: " + e);
         }
     }
@@ -290,9 +302,11 @@ public class FormPembeli extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        // membuat objek
         FormMaster fmkembali = new FormMaster();
+        // menampilkan menu utama
         fmkembali.show();
-
+        // membersihkan data yang disimpan didalam object global
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -304,41 +318,54 @@ public class FormPembeli extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NoHpActionPerformed
 
+    // menghapus data yang dipilih
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
         try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
+            // inisiasi sql statement
             String sql = "delete from tb_pembeli where id_pembeli = " + id_pembeli;
             int row = st.executeUpdate(sql);
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Data sukses dihapus", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up gagal
             JOptionPane.showMessageDialog(null, "Data gagal dihapus", "Data Pembeli", JOptionPane.ERROR_MESSAGE);
         }
+        // menampilkan tabel
         load_table();
     }//GEN-LAST:event_DeleteActionPerformed
-
+    
+    // menambahkan data
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
         try {
+            // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
+            // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "insert into tb_pembeli(nama,email,alamat,no_hp,password) "
                     + "values ('" + NamaPembeli.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "','" + Password.getText() + "')";
             int row = st.executeUpdate(sql);
 
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Sukses menambahkan data pembeli", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
 
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up eror
             JOptionPane.showMessageDialog(null, e, "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
+            // menampilkan eror pada console
             System.out.println("gagal menambah kedalam database \n" + e);
         }
+        //  menampilkan table
         load_table();
                         
     }//GEN-LAST:event_AddActionPerformed
@@ -346,24 +373,29 @@ public class FormPembeli extends javax.swing.JFrame {
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
         try {
+             // membuat koneksi baru
             Koneksi ObjKoneksi = new Koneksi();
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
 
+            // Membuat query dan langsung mengisinya saat dipanggil
             String sql = "update tb_pembeli set nama='"+ NamaPembeli.getText() + "',password='"+ Password.getText() + "', email ='" + Email.getText() + "',"+ "alamat ='" + Alamat.getText() + "',no_hp = " + NoHp.getText() +  " where id_pembeli = " + id_pembeli;
-
-            int row = st.executeUpdate(sql);
+            int row = st.executeUpdate(sql);//eksekusi query sql
             if (row == 1) {
+                // menampilkan UI pop up berhasil
                 JOptionPane.showMessageDialog(null, "Sukses merubah data", "Data Sepatu", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            // menampilkan UI pop up eror
             JOptionPane.showMessageDialog(null, e, "Data Pembeli", JOptionPane.ERROR_MESSAGE);
         }
+        //  menampilkan table
         load_table();
     }//GEN-LAST:event_UpdateActionPerformed
 
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
         // TODO add your handling code here:
+        // mengatur semua jenis JTextField menjadi null
         NamaPembeli.setText("");
         Email.setText("");
         Alamat.setText("");
@@ -373,15 +405,19 @@ public class FormPembeli extends javax.swing.JFrame {
 
     private void TbPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbPembeliMouseClicked
         // TODO add your handling code here:
-         id_pembeli = TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 0).toString();
+        // mengisi JTextField dengan data yang telah dipilih pada di Jtable
+        id_pembeli = TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 0).toString();
         NamaPembeli.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 1).toString());
         Email.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 2).toString());
         Alamat.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 3).toString());
         NoHp.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 4).toString());
         Password.setText(TbPembeli.getValueAt(TbPembeli.getSelectedRow(), 5).toString());
         
+        // meelihat status pengeditan pada JTable
         boolean editTbl = TbPembeli.isEditing();
+        // jika pemilihan data gagal
         if (editTbl == false) {
+            // menampilkan UI pop up eror
             JOptionPane.showMessageDialog(null, "Sukses memilih Data Pembeli", "Data Pembeli", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_TbPembeliMouseClicked
