@@ -11,7 +11,7 @@ package Form;
  */
 public class UserSession {
 
-    private static String nama, email;   
+    private static String nama, email, alamat;   
     private static int id;   
 
     public static int getID() {
@@ -25,9 +25,17 @@ public class UserSession {
     public static String getNama() {
         return nama;
     }
+    
+    public static String getAlamat() {
+        return alamat;
+    }
 
     public static void setNama(String nama) {
         UserSession.nama = nama;
+    }
+    
+    public static void setAlamat(String alamat) {
+        UserSession.alamat = alamat;
     }
     
     public static String getEmail() {

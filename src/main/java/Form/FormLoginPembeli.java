@@ -161,18 +161,23 @@ public class FormLoginPembeli extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             int id = 0;
-            String nama = null;
+            String nama = null;            
+            String alamat = null;
+
             sql = "SELECT * FROM tb_pembeli WHERE email='" + Email.getText() + "' AND password='" + Password.getText() + "'";
             con = (Connection) Koneksi.koneksiDB();
             stat = con.createStatement();
             rs = stat.executeQuery(sql);
             if (rs.next()) {
-                id = rs.getInt("id");
-                nama = rs.getString("nama");
+                id = rs.getInt("id_pembeli");
+                nama = rs.getString("nama");                
+                alamat = rs.getString("alamat");
+
                 if (Email.getText().equals(rs.getString("email")) && Password.getText().equals(rs.getString("password"))) {
                     JOptionPane.showMessageDialog(null, "Berhasil Login");
                     UserSession.setID(id);
                     UserSession.setNama(nama);
+                    UserSession.setAlamat(alamat);
    
                     new FormTransaksi().setVisible(true);
                     this.dispose();

@@ -186,7 +186,7 @@ public class FormRegister extends javax.swing.JFrame {
             Connection con = ObjKoneksi.koneksiDB();
             Statement st = con.createStatement();
             String sql = "insert into tb_pembeli(nama,email,alamat,no_hp, password) "
-                    + "values ('" + Alamat.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "', '" + Password.getText() + "')";
+                    + "values ('" + Nama.getText() + "', '" + Email.getText() + "', '" + Alamat.getText()+ "', '" + NoHp.getText() + "', '" + Password.getText() + "')";
             int row = st.executeUpdate(sql);
 
             if (row == 1) {
