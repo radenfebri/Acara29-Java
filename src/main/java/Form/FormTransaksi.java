@@ -8,6 +8,7 @@ import Model.Koneksi;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,10 +35,7 @@ public class FormTransaksi extends javax.swing.JFrame {
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet res = stm.executeQuery(sql);
             while(res.next()){
-                BarangSession barang = new BarangSession();
-                barang.setidBarang(Integer.parseInt(res.getString("id_barang")));
-                barang.setNamaBarang(res.getString("nama_barang"));
-                ComboBarang.addItem(barang);
+                ComboBarang.addItem(res.getString("nama_barang"));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -240,6 +238,7 @@ public class FormTransaksi extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
+        System.out.println(ComboBarang.getSelectedItem());
     }//GEN-LAST:event_SaveActionPerformed
 
     private void TxtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNamaActionPerformed

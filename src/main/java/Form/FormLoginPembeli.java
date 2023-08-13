@@ -170,9 +170,13 @@ public class FormLoginPembeli extends javax.swing.JFrame {
             rs = stat.executeQuery(sql);
             if (rs.next()) {
                 id = rs.getInt("id_pembeli");
+<<<<<<< HEAD
                 nama = rs.getString("nama");                
                 alamat = rs.getString("alamat");
 
+=======
+                nama = rs.getString("nama");
+>>>>>>> f56b295788965752809d80335d7b6a7c754e2557
                 if (Email.getText().equals(rs.getString("email")) && Password.getText().equals(rs.getString("password"))) {
                     JOptionPane.showMessageDialog(null, "Berhasil Login");
                     UserSession.setID(id);
